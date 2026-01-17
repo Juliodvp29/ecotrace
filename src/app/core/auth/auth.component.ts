@@ -59,14 +59,14 @@ export class AuthComponent implements OnInit {
 
     if (this.isLoginMode()) {
       this.authService.login({ email: email!, password: password! }).subscribe({
-        next: () => this.router.navigate(['/']),
+        next: () => this.router.navigate(['/dashboard']),
         error: (err) => console.error('Login error', err),
       });
     } else {
       this.authService
         .register({ fullName: fullName!, email: email!, password: password! })
         .subscribe({
-          next: () => this.router.navigate(['/']),
+          next: () => this.router.navigate(['/onboarding']),
           error: (err) => console.error('Register error', err),
         });
     }

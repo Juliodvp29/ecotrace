@@ -6,12 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
-  },
-  {
-    path: 'home',
-    canActivate: [authGuard],
-    loadComponent: () => import('./app').then((m) => m.App), // Example, replace with a real Home component later
+    redirectTo: 'onboarding',
   },
   {
     path: 'login',
@@ -25,6 +20,34 @@ export const routes: Routes = [
     path: 'auth/callback',
     loadComponent: () =>
       import('./core/auth/auth-callback.component').then((m) => m.AuthCallbackComponent),
+  },
+  {
+    path: 'onboarding',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./core/onboarding/onboarding.component').then((m) => m.OnboardingComponent),
+  },
+  {
+    path: '',
+    loadComponent: () => import('./shared/layout/layout.component').then((m) => m.LayoutComponent),
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./features/settings/settings.component').then((m) => m.SettingsComponent),
+      },
+      {
+        path: 'home',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '**',

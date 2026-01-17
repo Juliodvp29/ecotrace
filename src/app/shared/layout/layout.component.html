@@ -1,0 +1,242 @@
+<div class="flex h-screen w-full overflow-hidden bg-background-light dark:bg-background-dark">
+  <!-- Sidebar -->
+  <aside
+    class="hidden w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark lg:flex transition-colors duration-200"
+  >
+    <div class="flex h-16 items-center px-6 border-b border-slate-200 dark:border-slate-800">
+      <div class="flex items-center gap-2">
+        <div
+          class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/20 text-primary-dark dark:text-primary"
+        >
+          <span class="material-symbols-outlined text-[20px]">eco</span>
+        </div>
+        <span class="text-xl font-bold tracking-tight text-text-main dark:text-white"
+          >Eco-Trace</span
+        >
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-col justify-between overflow-y-auto px-4 py-6">
+      <nav class="flex flex-col gap-2">
+        @if (!isSettingsPage()) {
+          <!-- Platform section for Dashboard and others -->
+          <p
+            class="px-2 text-xs font-semibold uppercase tracking-wider text-text-secondary dark:text-slate-500 opacity-70 mb-2"
+          >
+            Platform
+          </p>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="bg-primary/10 text-primary-dark dark:text-primary"
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-text-main dark:hover:text-white transition-all"
+          >
+            <span class="material-symbols-outlined text-[22px]">dashboard</span>
+            Dashboard
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-[22px]">keyboard</span>
+            Data Entry
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-[22px]">bar_chart</span>
+            Reports
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-[22px]">lightbulb</span>
+            Recommendations
+          </a>
+
+          <p
+            class="px-2 text-xs font-semibold uppercase tracking-wider text-text-secondary dark:text-slate-500 opacity-70 mt-6 mb-2"
+          >
+            System
+          </p>
+          <a
+            routerLink="/settings"
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-text-main dark:hover:text-white transition-all"
+          >
+            <span class="material-symbols-outlined text-[22px]">settings</span>
+            Settings
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-[22px]">help</span>
+            Support
+          </a>
+        } @else {
+          <!-- Specific Sidebar for Settings as seen in User Image -->
+          <p
+            class="px-2 text-xs font-semibold uppercase tracking-wider text-text-secondary dark:text-slate-500 opacity-70 mb-2"
+          >
+            Settings
+          </p>
+          <a
+            routerLink="/settings"
+            routerLinkActive="bg-primary/10 text-primary-dark dark:text-primary"
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-text-main dark:hover:text-white transition-all border border-transparent shadow-sm"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="material-symbols-outlined">tune</span>
+            General
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined">domain</span>
+            Facilities
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined">group</span>
+            Users
+          </a>
+          <a
+            class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-text-secondary dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all opacity-50 cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined">receipt_long</span>
+            Billing
+          </a>
+
+          <div class="mt-8 px-2">
+            <div
+              class="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-transparent border border-primary/10"
+            >
+              <div class="flex items-center gap-2 mb-2 text-primary-dark dark:text-primary">
+                <span class="material-symbols-outlined text-sm">energy_savings_leaf</span>
+                <span class="text-xs font-bold uppercase tracking-tighter">Eco Tip</span>
+              </div>
+              <p class="text-[11px] text-text-secondary dark:text-slate-300 leading-relaxed">
+                Switching to renewable energy sources can reduce your carbon footprint by up to 40%.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            <a
+              routerLink="/dashboard"
+              class="group flex items-center gap-3 rounded-lg px-2 py-2 text-xs font-bold text-primary hover:bg-primary/5 transition-all"
+            >
+              <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+              Return to Dashboard
+            </a>
+          </div>
+        }
+      </nav>
+
+      <div class="mt-auto pt-6 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex items-center gap-3 px-2">
+          <div
+            class="h-9 w-9 overflow-hidden rounded-full bg-slate-200 ring-2 ring-white dark:ring-slate-800"
+          >
+            <img
+              [alt]="currentUser()?.fullName || 'User Profile'"
+              class="h-full w-full object-cover"
+              [src]="
+                currentUser()?.avatarUrl ||
+                'https://ui-avatars.com/api/?name=' +
+                  (currentUser()?.fullName || 'User') +
+                  '&background=random'
+              "
+            />
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <p class="text-sm font-bold text-text-main dark:text-white truncate">
+              {{ currentUser()?.fullName || 'User Name' }}
+            </p>
+            <p class="text-xs text-text-secondary dark:text-slate-400 capitalize">
+              {{ currentUser()?.role || 'User Role' }}
+            </p>
+          </div>
+          <button
+            (click)="logout()"
+            class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-text-secondary hover:text-red-500 transition-colors"
+            title="Logout"
+          >
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex flex-1 flex-col overflow-y-auto min-w-0 transition-colors duration-200">
+    <!-- Shared Top Header (Visible in Settings or Mobile) -->
+    @if (isSettingsPage()) {
+      <header
+        class="sticky top-0 z-50 hidden lg:flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-surface-light/90 dark:bg-background-dark/90 backdrop-blur-md px-6 py-4"
+      >
+        <div class="flex items-center gap-3">
+          <h1 class="text-xl font-bold tracking-tight text-text-main dark:text-white">
+            General Info
+          </h1>
+        </div>
+        <div class="flex items-center gap-6">
+          <button
+            class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary transition-colors"
+          >
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-slate-800">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-semibold leading-none">
+                {{ currentUser()?.fullName || 'User Name' }}
+              </p>
+              <p class="text-xs text-text-secondary dark:text-slate-400 mt-1 capitalize">
+                {{ currentUser()?.role || 'Admin' }}
+              </p>
+            </div>
+            <div
+              class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center ring-2 ring-white dark:ring-slate-800 shadow-sm cursor-pointer group relative"
+              [style.background-image]="
+                'url(' +
+                (currentUser()?.avatarUrl ||
+                  'https://ui-avatars.com/api/?name=' + (currentUser()?.fullName || 'User')) +
+                ')'
+              "
+            >
+              <button
+                (click)="logout()"
+                class="absolute -right-1 -bottom-1 size-5 bg-white dark:bg-slate-800 rounded-full shadow-md flex items-center justify-center border border-slate-100 dark:border-slate-700 text-text-secondary hover:text-red-500 transition-colors"
+              >
+                <span class="material-symbols-outlined text-[12px]">logout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+    }
+
+    <!-- Mobile Header -->
+    <header
+      class="flex h-16 items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark px-4 lg:hidden"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/20 text-primary-dark dark:text-primary"
+        >
+          <span class="material-symbols-outlined text-[20px]">eco</span>
+        </div>
+        <span class="text-lg font-bold text-text-main dark:text-white uppercase tracking-tight"
+          >Eco-Trace</span
+        >
+      </div>
+      <button class="text-text-secondary dark:text-slate-400">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </header>
+
+    <!-- CONTENT OUTLET -->
+    <div class="flex-1 w-full flex flex-col min-w-0">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

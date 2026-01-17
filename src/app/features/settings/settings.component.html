@@ -1,0 +1,216 @@
+<div class="flex flex-col gap-8 p-6 lg:p-10 max-w-5xl mx-auto w-full transition-all duration-300">
+  <!-- Page Header (already handled by Layout for desktop, but good to have title if needed or descriptive text) -->
+  <div class="flex flex-col gap-2">
+    <h2 class="text-3xl font-extrabold text-text-main dark:text-white tracking-tight lg:hidden">
+      General Info
+    </h2>
+    <p class="text-text-secondary dark:text-slate-400">
+      Update your organization's legal details and preferences.
+    </p>
+  </div>
+
+  <!-- Form Container -->
+  <form class="flex flex-col gap-8" (submit)="$event.preventDefault()">
+    <!-- Section 1: Organization Details -->
+    <div
+      class="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800"
+    >
+      <div
+        class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800"
+      >
+        <span class="material-symbols-outlined text-primary">badge</span>
+        <h3 class="text-lg font-bold text-text-main dark:text-white">Organization Details</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <label class="flex flex-col gap-2">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Legal Name</span>
+          <input
+            class="form-input w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors"
+            placeholder="e.g. Acme Sustainable Corp."
+            type="text"
+            value="Acme Corp"
+          />
+        </label>
+        <label class="flex flex-col gap-2">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+            >Legal ID (Tax ID/EIN)</span
+          >
+          <input
+            class="form-input w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors"
+            placeholder="XX-XXXXXXX"
+            type="text"
+            value="88-2910441"
+          />
+        </label>
+        <label class="flex flex-col gap-2 md:col-span-2">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+            >Industry Sector</span
+          >
+          <div class="relative">
+            <select
+              class="form-select w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors appearance-none cursor-pointer"
+            >
+              <option>Manufacturing</option>
+              <option selected="">Technology & Software</option>
+              <option>Retail & E-commerce</option>
+              <option>Energy & Utilities</option>
+              <option>Transportation & Logistics</option>
+            </select>
+            <span
+              class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined pointer-events-none text-slate-400"
+              >expand_more</span
+            >
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 2: Brand Identity -->
+    <div
+      class="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800"
+    >
+      <div
+        class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800"
+      >
+        <span class="material-symbols-outlined text-primary">palette</span>
+        <h3 class="text-lg font-bold text-text-main dark:text-white">Brand Identity</h3>
+      </div>
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <div class="flex flex-col items-center gap-3">
+          <div
+            class="size-32 rounded-full border-4 border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-center overflow-hidden relative group"
+          >
+            <div
+              class="absolute inset-0 bg-cover bg-center"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTXcFT-xMTASto_Dzz-6377Ofxr5KtJBn1dp-NWKUAP3bLkcP_zLX7hyR24zf3d0T7AqKdQUivACDSkifZ-7O81NiZXu89bDhbVnXV2XjOvEINau6kKJCGucvD30LydDggvf-40IXjjwr_3fb_ol1GjaTztNpR63fFxmrXpi-lOn1ia6o_1oIFPLytyLG0KKnfU1ULgs3FAU7eHKr1-XeTPKiivOaBohkts6Eo7fooV44iaG1z9XvAxifCgm-u35IuYSwwNiCYFvsB');
+              "
+            ></div>
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+            >
+              <span class="material-symbols-outlined text-white">edit</span>
+            </div>
+          </div>
+          <span class="text-xs font-medium text-slate-500">Current Logo</span>
+        </div>
+        <div class="flex-1 w-full">
+          <div
+            class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-primary transition-all cursor-pointer group w-full"
+          >
+            <div
+              class="size-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-symbols-outlined text-slate-400 group-hover:text-primary"
+                >cloud_upload</span
+              >
+            </div>
+            <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1">
+              <span class="text-primary hover:underline">Click to upload</span> or drag and drop
+            </p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              SVG, PNG, JPG or GIF (max. 400x400px)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Regional Preferences -->
+    <div
+      class="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800"
+    >
+      <div
+        class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800"
+      >
+        <span class="material-symbols-outlined text-primary">public</span>
+        <h3 class="text-lg font-bold text-text-main dark:text-white">Regional Preferences</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <label class="flex flex-col gap-2">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+            >Default Currency</span
+          >
+          <div class="relative">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-lg"
+              >payments</span
+            >
+            <select
+              class="form-select w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 pl-11 pr-4 transition-colors appearance-none"
+            >
+              <option selected="" value="USD">USD - US Dollar ($)</option>
+              <option value="EUR">EUR - Euro (€)</option>
+              <option value="GBP">GBP - British Pound (£)</option>
+              <option value="JPY">JPY - Japanese Yen (¥)</option>
+            </select>
+          </div>
+        </label>
+        <div class="flex flex-col gap-4">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+            >Units of Measure</span
+          >
+          <div
+            class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700"
+          >
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-slate-400">straighten</span>
+              <span class="text-sm font-medium text-text-main dark:text-slate-200">Distance</span>
+            </div>
+            <div
+              class="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm"
+            >
+              <button
+                class="px-3 py-1 text-xs font-bold rounded-md bg-primary text-slate-900 shadow-sm transition-all"
+                type="button"
+              >
+                KM
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+                type="button"
+              >
+                Miles
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700"
+          >
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-slate-400">water_drop</span>
+              <span class="text-sm font-medium text-text-main dark:text-slate-200">Volume</span>
+            </div>
+            <div
+              class="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm"
+            >
+              <button
+                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+                type="button"
+              >
+                Gal
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-bold rounded-md bg-primary text-slate-900 shadow-sm transition-all"
+                type="button"
+              >
+                Liters
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Footer -->
+    <div class="flex justify-end pt-4 mb-10">
+      <button
+        class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-slate-900 font-bold py-3 px-10 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95"
+        type="submit"
+      >
+        <span class="material-symbols-outlined">save</span>
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>
