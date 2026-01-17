@@ -1,0 +1,256 @@
+<div class="flex min-h-screen w-full flex-col lg:flex-row">
+  <!-- Left Hero Section -->
+  <div
+    class="relative hidden lg:flex lg:w-1/2 flex-col justify-end p-12 lg:p-20 bg-cover bg-center"
+    style="
+      background-image:
+        linear-gradient(rgba(16, 34, 22, 0.3), rgba(16, 34, 22, 0.8)),
+        url('https://lh3.googleusercontent.com/aida-public/AB6AXuCKSo-XKZhQY-UHQQBFw25O6piaiqUQ7k4vkr8vl8kNTpC-pC66WtqBlZd5WP16YLaV6UGkfv_Yhigi_WXKMyT3NwITTXrY_0S9Ywhtxua-h_H_hIHCPQxctpaHcaeyLk6HEp22wqQVrYX8EiWlARr1wCg9HCbrDjZa_10l3tgPhmh1m7nwA3g0D6YZ1mg0rqsj-lnHgEWbMBT6h7P6xLgIl7oSVZHwGtXFwF3xALi5QWGSHKoaKvL3oUF7C-gw4EoE7V80zpsSj5D5');
+    "
+  >
+    <div class="absolute top-10 left-12 flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-4xl">eco</span>
+      <span class="text-white font-bold text-2xl tracking-tight">Eco-Trace</span>
+    </div>
+    <div class="z-10 text-white max-w-xl">
+      <h1 class="text-5xl font-extrabold leading-tight mb-6 tracking-tight">
+        Empower your company's green transition
+      </h1>
+      <p class="text-lg opacity-90 font-medium mb-8 leading-relaxed text-gray-200">
+        Join 500+ SMEs tracking their carbon footprint today. Simplify sustainability management
+        with our intuitive platform.
+      </p>
+      <div class="flex items-center gap-4 pt-4 border-t border-white/20">
+        <div class="flex -space-x-3">
+          <img
+            alt="User Avatar 1"
+            class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU-_lz1SiP6GNtVLYNyN0Y_A9bpPMExy76v9SQnA37jETdI-lnYxuesfQwcAq5Llz8nkFL_2NliXcGjSWokGjP1nsiT98OgqO4jup1G38d31VWnhqq_ESxgCoXFW2AzoT7k7wYNdbynt0_5AT774qxeg2yUUU6bSbknIiPDNCSO4qhySo96oYafCudxlSOqaMqBTjiV-Zi8QxmzxwhUpmKKKia04ZSexSaxL0NyhMvGsfAx1O5IBlF1fANfYjKvsfJ-cIBY5oFnHdY"
+          />
+          <!-- Add more avatars if needed -->
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <span class="material-symbols-outlined text-primary text-sm">star</span>
+            }
+          </div>
+          <span class="text-xs font-medium text-gray-300">Trusted by sustainability leaders</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Form Section -->
+  <div
+    class="flex w-full lg:w-1/2 flex-col justify-center items-center px-6 py-12 lg:px-24 bg-surface-light dark:bg-background-dark relative"
+  >
+    <!-- Mobile Logo -->
+    <div class="lg:hidden absolute top-6 left-6 flex items-center gap-2 mb-8">
+      <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+      <span class="text-[#0d1b12] dark:text-white font-bold text-xl tracking-tight">Eco-Trace</span>
+    </div>
+
+    <div class="w-full max-w-md flex flex-col gap-6">
+      <!-- Segmented Control -->
+      <div class="w-full bg-[#e7f3eb] dark:bg-surface-dark p-1.5 rounded-xl flex shadow-inner">
+        <button
+          class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all duration-200"
+          [class.bg-white]="isLoginMode()"
+          [class.dark:bg-[#2f4538]]="isLoginMode()"
+          [class.text-[#0d1b12]]="isLoginMode()"
+          [class.dark:text-white]="isLoginMode()"
+          [class.shadow-sm]="isLoginMode()"
+          [class.text-[#4c9a66]]="!isLoginMode()"
+          [class.dark:text-[#6dbd88]]="!isLoginMode()"
+          (click)="isLoginMode.set(true)"
+        >
+          Login
+        </button>
+        <button
+          class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all duration-200"
+          [class.bg-white]="!isLoginMode()"
+          [class.dark:bg-[#2f4538]]="!isLoginMode()"
+          [class.text-[#0d1b12]]="!isLoginMode()"
+          [class.dark:text-white]="!isLoginMode()"
+          [class.shadow-sm]="!isLoginMode()"
+          [class.text-[#4c9a66]]="isLoginMode()"
+          [class.dark:text-[#6dbd88]]="isLoginMode()"
+          (click)="isLoginMode.set(false)"
+        >
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Headline -->
+      <div class="text-center pt-2">
+        <h2 class="text-3xl font-extrabold tracking-tight text-[#0d1b12] dark:text-white mb-2">
+          @if (isLoginMode()) {
+            Welcome back
+          } @else {
+            Create your account
+          }
+        </h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          @if (isLoginMode()) {
+            Sign in to manage your company's green transition
+          } @else {
+            Start your 14-day free trial. No credit card required.
+          }
+        </p>
+      </div>
+
+      <!-- Social Buttons -->
+      <div class="grid grid-cols-2 gap-4">
+        <button
+          (click)="loginWithGoogle()"
+          class="flex items-center justify-center gap-2 h-12 px-4 rounded-lg border border-gray-200 dark:border-[#2a4030] bg-white dark:bg-surface-dark hover:bg-gray-50 dark:hover:bg-[#25382e] transition-colors text-sm font-bold text-[#0d1b12] dark:text-white group"
+        >
+          <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform"
+            >language</span
+          >
+          <span>Google</span>
+        </button>
+        <button
+          class="flex items-center justify-center gap-2 h-12 px-4 rounded-lg border border-gray-200 dark:border-[#2a4030] bg-white dark:bg-surface-dark hover:bg-gray-50 dark:hover:bg-[#25382e] transition-colors text-sm font-bold text-[#0d1b12] dark:text-white group"
+        >
+          <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform"
+            >grid_view</span
+          >
+          <span>Microsoft</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative flex py-2 items-center">
+        <div class="flex-grow border-t border-gray-200 dark:border-[#2a4030]"></div>
+        <span
+          class="flex-shrink-0 mx-4 text-gray-400 dark:text-gray-500 text-xs font-semibold uppercase tracking-wider"
+        >
+          @if (isLoginMode()) {
+            Or login with email
+          } @else {
+            Or register with email
+          }
+        </span>
+        <div class="flex-grow border-t border-gray-200 dark:border-[#2a4030]"></div>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+        @if (!isLoginMode()) {
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-bold text-[#0d1b12] dark:text-gray-200" for="name"
+              >Full Name</label
+            >
+            <input
+              formControlName="fullName"
+              class="w-full h-12 px-4 rounded-lg border border-gray-200 dark:border-[#2a4030] bg-white dark:bg-surface-dark text-[#0d1b12] dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all shadow-sm"
+              id="name"
+              placeholder="John Doe"
+              type="text"
+            />
+          </div>
+        }
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-bold text-[#0d1b12] dark:text-gray-200" for="email"
+            >Work Email</label
+          >
+          <input
+            formControlName="email"
+            class="w-full h-12 px-4 rounded-lg border border-gray-200 dark:border-[#2a4030] bg-white dark:bg-surface-dark text-[#0d1b12] dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all shadow-sm"
+            id="email"
+            placeholder="name@company.com"
+            type="email"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-center">
+            <label class="text-sm font-bold text-[#0d1b12] dark:text-gray-200" for="password"
+              >Password</label
+            >
+            @if (isLoginMode()) {
+              <a href="#" class="text-xs font-bold text-primary hover:underline"
+                >Forgot password?</a
+              >
+            }
+          </div>
+          <div class="relative">
+            <input
+              formControlName="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              class="w-full h-12 px-4 rounded-lg border border-gray-200 dark:border-[#2a4030] bg-white dark:bg-surface-dark text-[#0d1b12] dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all shadow-sm pr-10"
+              id="password"
+              placeholder="••••••••"
+            />
+            <button
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              type="button"
+            >
+              <span class="material-symbols-outlined text-xl">
+                {{ showPassword() ? 'visibility' : 'visibility_off' }}
+              </span>
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+            <span
+              class="material-symbols-outlined text-[16px]"
+              [class.text-green-600]="authForm.get('password')?.valid"
+            >
+              {{ authForm.get('password')?.valid ? 'check_circle' : 'info' }}
+            </span>
+            At least 8 characters
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="authForm.invalid"
+          class="mt-2 w-full h-12 bg-primary hover:bg-[#0fd651] disabled:opacity-50 disabled:cursor-not-allowed text-[#0d1b12] font-extrabold rounded-lg shadow-lg shadow-primary/20 transition-all duration-200 transform active:scale-[0.98] flex items-center justify-center gap-2"
+        >
+          @if (isLoginMode()) {
+            Log In
+          } @else {
+            Create Account
+          }
+          <span class="material-symbols-outlined text-lg font-bold">arrow_forward</span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div class="text-center space-y-4 pt-2">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          @if (isLoginMode()) {
+            Don't have an account?
+            <button (click)="isLoginMode.set(false)" class="font-bold text-primary hover:underline">
+              Sign Up
+            </button>
+          } @else {
+            Already have an account?
+            <button (click)="isLoginMode.set(true)" class="font-bold text-primary hover:underline">
+              Log in
+            </button>
+          }
+        </p>
+        <div class="text-xs text-gray-400 dark:text-gray-500 max-w-xs mx-auto leading-relaxed">
+          By clicking "{{ isLoginMode() ? 'Log In' : 'Create Account' }}", you agree to our
+          <a class="underline hover:text-gray-600 dark:hover:text-gray-300" href="#"
+            >Terms of Service</a
+          >
+          and
+          <a class="underline hover:text-gray-600 dark:hover:text-gray-300" href="#"
+            >Privacy Policy</a
+          >.
+        </div>
+      </div>
+      <!-- Secure Badge -->
+      <div class="flex justify-center items-center gap-2 mt-4 opacity-60">
+        <span class="material-symbols-outlined text-gray-400 text-lg">lock</span>
+        <span class="text-xs text-gray-400 font-medium">SSL Secured Connection</span>
+      </div>
+    </div>
+  </div>
+</div>
