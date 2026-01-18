@@ -1,0 +1,86 @@
+<div class="flex flex-col h-full overflow-hidden">
+  <!-- Header -->
+  <header
+    class="flex-shrink-0 px-6 py-6 md:px-10 border-b border-gray-200 dark:border-gray-800 bg-background-light dark:bg-background-dark z-10"
+  >
+    <div class="max-w-[1400px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <h1
+            class="text-text-main dark:text-white text-3xl font-black leading-tight tracking-tight"
+          >
+            {{ translationService.translate('dataCapture.title') }}
+          </h1>
+          <p class="text-text-secondary dark:text-slate-400 text-base font-normal">
+            {{ translationService.translate('dataCapture.subtitle') }}
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            class="hidden md:flex items-center justify-center h-10 px-4 rounded-lg bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-bold text-text-main dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            <span class="material-symbols-outlined mr-2 text-lg">help</span>
+            {{ translationService.translate('dataCapture.helpGuide') }}
+          </button>
+          <button
+            class="flex items-center justify-center h-10 px-4 rounded-lg bg-primary hover:bg-primary-dark text-slate-900 text-sm font-bold transition-colors shadow-lg shadow-primary/20"
+          >
+            <span class="material-symbols-outlined mr-2 text-lg">add</span>
+            {{ translationService.translate('dataCapture.newReport') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 overflow-y-auto p-6 md:p-10">
+    <div class="max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
+      <!-- Left Column: Upload Zone (4 cols on XL screens) -->
+      <div class="xl:col-span-4 flex flex-col">
+        <app-upload-zone
+          class="flex-1 flex flex-col"
+          (filesSelected)="onFileUpload($event)"
+        ></app-upload-zone>
+      </div>
+
+      <!-- Right Column: Activity & Preview (8 cols on XL screens) -->
+      <div class="xl:col-span-8 flex flex-col gap-6">
+        <!-- Recent Activity Section -->
+        <app-activity-table
+          [documents]="documents()"
+          [selectedDocument]="selectedDocument()"
+          (documentSelected)="onDocumentSelect($event)"
+        >
+        </app-activity-table>
+
+        <!-- Document Preview & Extraction -->
+        @if (selectedDocument()) {
+          <app-document-preview
+            class="flex-1"
+            [document]="selectedDocument()!"
+            (confirmData)="onConfirmData($event)"
+            (reject)="onRejectDocument()"
+          >
+          </app-document-preview>
+        } @else {
+          <div
+            class="flex-1 min-h-[400px] bg-surface-light dark:bg-surface-dark rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-800 flex flex-col items-center justify-center p-10 text-center"
+          >
+            <div
+              class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4"
+            >
+              <span class="material-symbols-outlined text-3xl text-slate-400">description</span>
+            </div>
+            <h3 class="text-lg font-bold text-text-main dark:text-white mb-2">
+              {{ translationService.translate('dataCapture.preview.noSelection.title') }}
+            </h3>
+            <p class="text-sm text-text-secondary dark:text-slate-400 max-w-xs">
+              {{ translationService.translate('dataCapture.preview.noSelection.message') }}
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

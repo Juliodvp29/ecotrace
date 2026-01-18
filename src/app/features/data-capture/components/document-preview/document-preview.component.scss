@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    top: -25%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 125%;
+    opacity: 0;
+  }
+}
+
+/* Custom Scrollbar */
+.preview-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.preview-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.preview-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+:host-context(.dark) .preview-container::-webkit-scrollbar-thumb {
+  background: #374151;
+}

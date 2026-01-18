@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { CreateFacilityRequest, FacilityType } from '@core/models/facility.interface';
+import { CreateOrganizationRequest } from '@core/models/organization.interface';
+import { FacilityService } from '@core/services/facility.service';
+import { OrganizationService } from '@core/services/organization.service';
+import { ToastService } from '@core/services/toast.service';
+import { TranslationService } from '@core/services/translation.service';
 import { forkJoin, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { CreateFacilityRequest, FacilityType } from '../models/facility.interface';
-import { CreateOrganizationRequest } from '../models/organization.interface';
-import { FacilityService } from '../services/facility.service';
-import { OrganizationService } from '../services/organization.service';
-import { ToastService } from '../services/toast.service';
-import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-onboarding',

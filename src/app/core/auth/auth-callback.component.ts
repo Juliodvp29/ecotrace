@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoaderComponent } from '../../shared/components/loader/loader.component';
-import { AuthResponse } from '../models/auth.interface';
-import { AuthService } from '../services/auth.service';
+import { AuthResponse } from '@core/models/auth.interface';
+import { AuthService } from '@core/services/auth.service';
+import { LoaderComponent } from '@shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-auth-callback',

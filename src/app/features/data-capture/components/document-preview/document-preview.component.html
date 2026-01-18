@@ -1,0 +1,201 @@
+<div
+  class="flex-1 bg-surface-light dark:bg-surface-dark rounded-2xl shadow-lg border border-primary/30 relative overflow-hidden flex flex-col lg:flex-row"
+>
+  <!-- Processing Progress Bar -->
+  <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-800 z-20">
+    <div class="h-full bg-primary w-2/3 animate-pulse"></div>
+  </div>
+
+  <!-- Left: Document Preview -->
+  <div
+    class="w-full lg:w-5/12 bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-4 flex flex-col"
+  >
+    <!-- Preview Header with Controls -->
+    <div class="flex items-center justify-between mb-3">
+      <h3
+        class="text-sm font-bold text-text-secondary dark:text-slate-400 uppercase tracking-wider"
+      >
+        {{ translationService.translate('dataCapture.preview.header') }}
+      </h3>
+      <div class="flex gap-2">
+        <button
+          (click)="zoomIn()"
+          type="button"
+          class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-text-secondary dark:text-slate-400 transition-colors"
+        >
+          <span class="material-symbols-outlined text-lg">zoom_in</span>
+        </button>
+        <button
+          (click)="zoomOut()"
+          type="button"
+          class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-text-secondary dark:text-slate-400 transition-colors"
+        >
+          <span class="material-symbols-outlined text-lg">zoom_out</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Document Image Container -->
+    <div
+      class="relative flex-1 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden shadow-inner group"
+    >
+      @if (document().previewUrl) {
+        <div
+          class="absolute inset-0 bg-cover bg-top opacity-90 transition-all group-hover:opacity-100"
+          [style.transform]="'scale(' + zoomLevel() + ')'"
+          [style.background-image]="'url(' + document().previewUrl + ')'"
+        ></div>
+
+        <!-- Scanning Effect Overlay -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent h-1/4 w-full animate-[scan_3s_linear_infinite] border-b-2 border-primary/50"
+        ></div>
+
+        <!-- OCR Highlights (Simulated) -->
+        <div
+          class="absolute top-[25%] left-[10%] w-[30%] h-[5%] border-2 border-primary bg-primary/10 rounded"
+        ></div>
+        <div
+          class="absolute top-[40%] right-[10%] w-[20%] h-[5%] border-2 border-primary bg-primary/10 rounded"
+        ></div>
+      } @else {
+        <div
+          class="absolute inset-0 flex items-center justify-center text-text-secondary dark:text-slate-400"
+        >
+          <span class="material-symbols-outlined text-5xl">description</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Right: Extracted Data Form -->
+  <div class="w-full lg:w-7/12 p-6 lg:p-8 flex flex-col">
+    <!-- Form Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h3 class="text-xl font-bold text-text-main dark:text-white">
+          {{ translationService.translate('dataCapture.preview.extractedData') }}
+        </h3>
+        <p class="text-sm text-text-secondary dark:text-slate-400 flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-yellow-500">warning</span>
+          {{ translationService.translate('dataCapture.preview.reviewHint') }}
+        </p>
+      </div>
+      <span
+        class="px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold uppercase tracking-wide"
+      >
+        {{ translationService.translate('dataCapture.preview.aiConfidence') }}:
+        {{ getConfidence() }}%
+      </span>
+    </div>
+
+    <!-- Editable Form Fields -->
+    <form
+      [formGroup]="extractedDataForm"
+      class="grid grid-cols-1 md:grid-cols-2 gap-5 flex-1 overflow-y-auto"
+    >
+      <!-- Vendor Field -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-text-secondary dark:text-slate-400 uppercase">{{
+          translationService.translate('dataCapture.preview.fields.vendor')
+        }}</label>
+        <div class="relative group">
+          <input
+            formControlName="vendor"
+            type="text"
+            class="w-full bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm font-medium text-text-main dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+          />
+          <div
+            class="absolute right-3 top-2.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <span class="material-symbols-outlined text-lg">edit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Field -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-text-secondary dark:text-slate-400 uppercase">{{
+          translationService.translate('dataCapture.preview.fields.date')
+        }}</label>
+        <input
+          formControlName="date"
+          type="text"
+          class="w-full bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm font-medium text-text-main dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+        />
+      </div>
+
+      <!-- Consumption Field (highlighted for low confidence) -->
+      <div class="space-y-1.5">
+        <label
+          class="text-xs font-bold text-yellow-600 dark:text-yellow-500 uppercase flex items-center gap-1"
+        >
+          {{ translationService.translate('dataCapture.preview.fields.consumption') }}
+          <span class="material-symbols-outlined text-sm">info</span>
+        </label>
+        <div class="relative">
+          <input
+            formControlName="consumption"
+            type="text"
+            class="w-full bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-300 dark:border-yellow-700 rounded-lg px-3 py-2.5 text-sm font-bold text-text-main dark:text-white focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all"
+          />
+          <div class="absolute right-3 top-2.5 text-yellow-500">
+            <span class="material-symbols-outlined text-lg">priority_high</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-yellow-600 dark:text-yellow-400">
+          {{ translationService.translate('dataCapture.preview.lowConfidenceHint') }}
+        </p>
+      </div>
+
+      <!-- Total Cost Field -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-text-secondary dark:text-slate-400 uppercase">{{
+          translationService.translate('dataCapture.preview.fields.totalCost')
+        }}</label>
+        <div class="relative">
+          <div class="absolute left-3 top-2.5 text-text-secondary dark:text-slate-400 text-sm">
+            $
+          </div>
+          <input
+            formControlName="totalCost"
+            type="text"
+            class="w-full bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg pl-6 pr-3 py-2.5 text-sm font-medium text-text-main dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+          />
+        </div>
+      </div>
+
+      <!-- Notes Field (Full Width) -->
+      <div class="col-span-1 md:col-span-2 space-y-1.5">
+        <label class="text-xs font-bold text-text-secondary dark:text-slate-400 uppercase">{{
+          translationService.translate('dataCapture.preview.fields.notes')
+        }}</label>
+        <textarea
+          formControlName="notes"
+          class="w-full bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm font-medium text-text-main dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all h-20 resize-none"
+        >
+        </textarea>
+      </div>
+    </form>
+
+    <!-- Action Buttons -->
+    <div class="mt-8 flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-800">
+      <button
+        (click)="onReject()"
+        type="button"
+        class="flex-1 flex items-center justify-center h-11 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-bold text-text-main dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+      >
+        {{ translationService.translate('dataCapture.preview.reject') }}
+      </button>
+      <button
+        (click)="onConfirm()"
+        type="button"
+        [disabled]="extractedDataForm.invalid"
+        class="flex-1 flex items-center justify-center h-11 rounded-lg bg-primary hover:bg-primary-dark text-slate-900 text-sm font-bold transition-colors shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <span class="material-symbols-outlined mr-2 text-lg">check</span>
+        {{ translationService.translate('dataCapture.preview.confirm') }}
+      </button>
+    </div>
+  </div>
+</div>

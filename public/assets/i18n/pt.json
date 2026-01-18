@@ -175,7 +175,7 @@
   "nav": {
     "platform": "Plataforma",
     "dashboard": "Painel",
-    "dataEntry": "Entrada de Dados",
+    "dataEntry": "Captura Inteligente",
     "reports": "Relatórios",
     "recommendations": "Recomendações",
     "system": "Sistema",
@@ -196,5 +196,60 @@
     "logout": "Sair",
     "generalInfo": "Informações Gerais",
     "notifications": "Notificações"
+  },
+  "dataCapture": {
+    "title": "Captura Inteligente de Dados",
+    "subtitle": "Carregue faturas para calcular automaticamente sua pegada de carbono usando IA.",
+    "helpGuide": "Guia de Ajuda",
+    "newReport": "Novo Relatório",
+    "upload": {
+      "title": "Carregar Documentos",
+      "dragDropText": "Clique ou arraste arquivos aqui",
+      "supportText": "Suporte para arquivos PDF, JPG, PNG.",
+      "billTypes": "Faturas de Eletricidade, Água e Combustível.",
+      "browseFiles": "Procurar Arquivos",
+      "supportedFormats": "Formatos Suportados",
+      "maxSize": "Tam Máx: 25MB"
+    },
+    "activity": {
+      "title": "Atividade Recente",
+      "viewAll": "Ver Tudo",
+      "columns": {
+        "filename": "Nome do Arquivo",
+        "date": "Data",
+        "category": "Categoria",
+        "status": "Status"
+      },
+      "status": {
+        "processing": "Processando",
+        "verified": "Verificado",
+        "actionRequired": "Ação Necessária"
+      },
+      "categories": {
+        "electricity": "Eletricidade",
+        "water": "Água",
+        "fuel": "Combustível"
+      }
+    },
+    "preview": {
+      "header": "Visualização do Documento",
+      "extractedData": "Dados Extraídos",
+      "reviewHint": "Revise os campos marcados em amarelo",
+      "aiConfidence": "Confiança IA",
+      "fields": {
+        "vendor": "Fornecedor",
+        "date": "Data",
+        "consumption": "Consumo (kWh)",
+        "totalCost": "Custo Total",
+        "notes": "Notas"
+      },
+      "lowConfidenceHint": "Escaneamento de baixa confiança. Por favor, verifique.",
+      "reject": "Rejeitar",
+      "confirm": "Confirmar Dados",
+      "noSelection": {
+        "title": "Nenhum Documento Selecionado",
+        "message": "Selecione um documento da lista de atividades para ver os detalhes da extração e a visualização."
+      }
+    }
   }
 }

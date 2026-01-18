@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { TranslationService } from '@core/services/translation.service';
 import { filter, map } from 'rxjs';
-import { AuthService } from '../../core/services/auth.service';
-import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-layout',

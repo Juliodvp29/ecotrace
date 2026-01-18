@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
+import { CreateFacilityRequest, Facility, GeocodeResponse } from '@core/models/facility.interface';
 import { Observable } from 'rxjs';
-import { CreateFacilityRequest, Facility, GeocodeResponse } from '../models/facility.interface';
 import { ApiHttpService } from './api-http.service';
 
 @Injectable({

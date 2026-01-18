@@ -1,0 +1,119 @@
+<div
+  class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col"
+>
+  <!-- Header -->
+  <div
+    class="px-6 py-5 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-surface-dark"
+  >
+    <h2 class="text-lg font-bold text-text-main dark:text-white">
+      {{ translationService.translate('dataCapture.activity.title') }}
+    </h2>
+    <button
+      class="text-sm font-bold text-primary hover:text-primary-dark flex items-center transition-colors"
+    >
+      {{ translationService.translate('dataCapture.activity.viewAll') }}
+      <span class="material-symbols-outlined text-lg ml-1">arrow_forward</span>
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-50/50 dark:bg-gray-800/30 border-b border-gray-200 dark:border-gray-800">
+          <th
+            class="px-6 py-3 text-xs font-bold text-text-secondary dark:text-slate-400 uppercase tracking-wider"
+          >
+            {{ translationService.translate('dataCapture.activity.columns.filename') }}
+          </th>
+          <th
+            class="px-6 py-3 text-xs font-bold text-text-secondary dark:text-slate-400 uppercase tracking-wider"
+          >
+            {{ translationService.translate('dataCapture.activity.columns.date') }}
+          </th>
+          <th
+            class="px-6 py-3 text-xs font-bold text-text-secondary dark:text-slate-400 uppercase tracking-wider"
+          >
+            {{ translationService.translate('dataCapture.activity.columns.category') }}
+          </th>
+          <th
+            class="px-6 py-3 text-xs font-bold text-text-secondary dark:text-slate-400 uppercase tracking-wider text-right"
+          >
+            {{ translationService.translate('dataCapture.activity.columns.status') }}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+        @for (document of documents(); track document.id) {
+          <tr
+            (click)="onRowClick(document)"
+            [class.bg-primary/5]="isSelected(document)"
+            class="cursor-pointer hover:bg-primary/10 dark:hover:bg-primary/5 transition-colors"
+          >
+            <!-- Filename Column -->
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div
+                  [class]="
+                    'p-2 rounded bg-white dark:bg-gray-800 shadow-sm ' +
+                    getFileIconColor(document.filename)
+                  "
+                >
+                  <span class="material-symbols-outlined text-xl">{{
+                    getFileIcon(document.filename)
+                  }}</span>
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-text-main dark:text-white">
+                    {{ document.filename }}
+                  </p>
+                  <p class="text-xs text-text-secondary dark:text-slate-400">{{ document.size }}</p>
+                </div>
+              </div>
+            </td>
+
+            <!-- Date Column -->
+            <td class="px-6 py-4 text-sm text-text-secondary dark:text-slate-400 font-medium">
+              {{ document.date }}
+            </td>
+
+            <!-- Category Column -->
+            <td class="px-6 py-4">
+              <span
+                [class]="
+                  'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border ' +
+                  getCategoryClasses(document.category)
+                "
+              >
+                <span class="material-symbols-outlined text-sm">{{
+                  getCategoryIcon(document.category)
+                }}</span>
+                {{ getCategoryLabel(document.category) }}
+              </span>
+            </td>
+
+            <!-- Status Column -->
+            <td class="px-6 py-4 text-right">
+              <span
+                [class]="
+                  'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ' +
+                  getStatusClasses(document.status)
+                "
+              >
+                @if (document.status === 'processing') {
+                  <span class="size-2 bg-yellow-400 rounded-full animate-pulse"></span>
+                }
+                @if (getStatusIcon(document.status)) {
+                  <span class="material-symbols-outlined text-sm">{{
+                    getStatusIcon(document.status)
+                  }}</span>
+                }
+                {{ getStatusLabel(document.status) }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

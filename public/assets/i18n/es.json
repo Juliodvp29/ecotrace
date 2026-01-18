@@ -175,7 +175,7 @@
   "nav": {
     "platform": "Plataforma",
     "dashboard": "Panel",
-    "dataEntry": "Entrada de Datos",
+    "smartCapture": "Captura Inteligente",
     "reports": "Informes",
     "recommendations": "Recomendaciones",
     "system": "Sistema",
@@ -196,5 +196,60 @@
     "logout": "Cerrar Sesión",
     "generalInfo": "Información General",
     "notifications": "Notificaciones"
+  },
+  "dataCapture": {
+    "title": "Captura Inteligente de Datos",
+    "subtitle": "Sube facturas para calcular automáticamente tu huella de carbono con IA.",
+    "helpGuide": "Guía de Ayuda",
+    "newReport": "Nuevo Reporte",
+    "upload": {
+      "title": "Subir Documentos",
+      "dragDropText": "Haz clic o arrastra archivos aquí",
+      "supportText": "Soporta archivos PDF, JPG, PNG.",
+      "billTypes": "Facturas de Electricidad, Agua y Combustible.",
+      "browseFiles": "Explorar Archivos",
+      "supportedFormats": "Formatos Soportados",
+      "maxSize": "Tamaño Máx: 25MB"
+    },
+    "activity": {
+      "title": "Actividad Reciente",
+      "viewAll": "Ver Todo",
+      "columns": {
+        "filename": "Nombre del Archivo",
+        "date": "Fecha",
+        "category": "Categoría",
+        "status": "Estado"
+      },
+      "status": {
+        "processing": "Procesando",
+        "verified": "Verificado",
+        "actionRequired": "Acción Requerida"
+      },
+      "categories": {
+        "electricity": "Electricidad",
+        "water": "Agua",
+        "fuel": "Combustible"
+      }
+    },
+    "preview": {
+      "header": "Vista Previa del Documento",
+      "extractedData": "Datos Extraídos",
+      "reviewHint": "Revisa los campos marcados en amarillo",
+      "aiConfidence": "Confianza IA",
+      "fields": {
+        "vendor": "Proveedor",
+        "date": "Fecha",
+        "consumption": "Consumo (kWh)",
+        "totalCost": "Costo Total",
+        "notes": "Notas"
+      },
+      "lowConfidenceHint": "Escaneo de baja confianza. Por favor verifica.",
+      "reject": "Rechazar",
+      "confirm": "Confirmar Datos",
+      "noSelection": {
+        "title": "Ningún Documento Seleccionado",
+        "message": "Selecciona un documento de la lista de actividad para ver los detalles de extracción y vista previa."
+      }
+    }
   }
 }

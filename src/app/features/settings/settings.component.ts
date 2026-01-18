@@ -1,9 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Organization } from '../../core/models/organization.interface';
-import { OrganizationService } from '../../core/services/organization.service';
-import { ToastService } from '../../core/services/toast.service';
-import { TranslationService } from '../../core/services/translation.service';
+import { Organization } from '@core/models/organization.interface';
+import { OrganizationService } from '@core/services/organization.service';
+import { ToastService } from '@core/services/toast.service';
+import { TranslationService } from '@core/services/translation.service';
 
 import { CommonModule } from '@angular/common';
 

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
+import { AuthResponse, LoginRequest, RegisterRequest } from '@core/models/auth.interface';
+import { User } from '@core/models/user.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { AuthResponse, LoginRequest, RegisterRequest } from '../models/auth.interface';
-import { User } from '../models/user.interface';
 import { ApiHttpService } from './api-http.service';
 
 @Injectable({

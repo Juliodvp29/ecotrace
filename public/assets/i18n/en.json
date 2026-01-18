@@ -175,7 +175,7 @@
   "nav": {
     "platform": "Platform",
     "dashboard": "Dashboard",
-    "dataEntry": "Data Entry",
+    "smartCapture": "Smart Capture",
     "reports": "Reports",
     "recommendations": "Recommendations",
     "system": "System",
@@ -196,5 +196,60 @@
     "logout": "Logout",
     "generalInfo": "General Info",
     "notifications": "Notifications"
+  },
+  "dataCapture": {
+    "title": "Smart Data Capture",
+    "subtitle": "Upload utility bills to automatically calculate your carbon footprint using AI.",
+    "helpGuide": "Help Guide",
+    "newReport": "New Report",
+    "upload": {
+      "title": "Upload Documents",
+      "dragDropText": "Click or drag files here",
+      "supportText": "Support for PDF, JPG, PNG files.",
+      "billTypes": "Electricity, Water, and Fuel bills.",
+      "browseFiles": "Browse Files",
+      "supportedFormats": "Supported Formats",
+      "maxSize": "Max Size: 25MB"
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "viewAll": "View All",
+      "columns": {
+        "filename": "Filename",
+        "date": "Date",
+        "category": "Category",
+        "status": "Status"
+      },
+      "status": {
+        "processing": "Processing",
+        "verified": "Verified",
+        "actionRequired": "Action Required"
+      },
+      "categories": {
+        "electricity": "Electricity",
+        "water": "Water",
+        "fuel": "Fuel"
+      }
+    },
+    "preview": {
+      "header": "Document Preview",
+      "extractedData": "Extracted Data",
+      "reviewHint": "Review fields marked in yellow",
+      "aiConfidence": "AI Confidence",
+      "fields": {
+        "vendor": "Vendor",
+        "date": "Date",
+        "consumption": "Consumption (kWh)",
+        "totalCost": "Total Cost",
+        "notes": "Notes"
+      },
+      "lowConfidenceHint": "Low confidence scan. Please verify.",
+      "reject": "Reject",
+      "confirm": "Confirm Data",
+      "noSelection": {
+        "title": "No Document Selected",
+        "message": "Select a document from the activity list to view extraction details and preview."
+      }
+    }
   }
 }

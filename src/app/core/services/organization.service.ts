@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import {
     CreateOrganizationRequest,
     CreateOrganizationResponse,
     Organization,
-} from '../models/organization.interface';
+} from '@core/models/organization.interface';
+import { Observable } from 'rxjs';
 import { ApiHttpService } from './api-http.service';
 
 @Injectable({
