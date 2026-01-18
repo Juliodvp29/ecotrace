@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { CreateFacilityRequest, FacilityType } from '../models/facility.interface';
 import { CreateOrganizationRequest } from '../models/organization.interface';
+import { FacilityService } from '../services/facility.service';
 import { OrganizationService } from '../services/organization.service';
 import { ToastService } from '../services/toast.service';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -13,14 +18,17 @@ import { ToastService } from '../services/toast.service';
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.scss',
 })
-export class OnboardingComponent {
+export class OnboardingComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private organizationService = inject(OrganizationService);
+  private facilityService = inject(FacilityService);
   private toast = inject(ToastService);
+  public translationService = inject(TranslationService);
 
-  currentStep = signal(1);
+  currentStep = signal(0); // Start at 0 while checking state
   totalSteps = 3;
+  isLoading = signal(true);
 
   onboardingForm = this.fb.group({
     companyInfo: this.fb.group({
@@ -54,6 +62,56 @@ export class OnboardingComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.checkOnboardingState();
+  }
+
+  private checkOnboardingState() {
+    this.organizationService.getMyOrganization().subscribe({
+      next: (org) => {
+        if (org) {
+          // Patch existing data so the form group is valid!
+          this.onboardingForm.get('companyInfo')?.patchValue({
+            businessName: org.legalName,
+            fiscalId: org.fiscalId,
+            sector: org.industrySector,
+            location: org.geographicLocation,
+          });
+          // Org exists, check facilities
+          this.checkFacilitiesState();
+        } else {
+          this.currentStep.set(1);
+          this.isLoading.set(false);
+        }
+      },
+      error: () => {
+        // No organization found, stay at Step 1
+        this.currentStep.set(1);
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  private checkFacilitiesState() {
+    this.facilityService.getFacilities().subscribe({
+      next: (facilities) => {
+        if (facilities && facilities.length > 0) {
+          // Both complete, go to dashboard
+          this.router.navigate(['/dashboard']);
+        } else {
+          // Org exists but no facilities, go to Step 2
+          this.currentStep.set(2);
+          this.isLoading.set(false);
+        }
+      },
+      error: () => {
+        // Error checking facilities, assume Step 2
+        this.currentStep.set(2);
+        this.isLoading.set(false);
+      },
+    });
+  }
+
   nextStep() {
     if (this.currentStep() === 1) {
       if (this.onboardingForm.get('companyInfo')?.invalid) return;
@@ -67,6 +125,7 @@ export class OnboardingComponent {
         defaultCurrency: 'USD', // Default
         distanceUnit: 'km', // Default
         volumeUnit: 'liters', // Default
+        language: this.translationService.currentLanguage(),
       };
 
       this.organizationService.createOrganization(request).subscribe({
@@ -77,6 +136,41 @@ export class OnboardingComponent {
         error: (err) => {
           console.error('Error creating organization:', err);
           this.toast.error('Failed to create organization. Please check your data.');
+        },
+      });
+    } else if (this.currentStep() === 2) {
+      if (this.facilities.invalid) return;
+
+      const facilitiesData = this.onboardingForm.value.facilities as any[];
+
+      this.toast.info('Saving facilities and checking locations...');
+
+      const facilityRequests = facilitiesData.map((fac) => {
+        // First geocode, then create
+        return this.facilityService.geocode(fac.address).pipe(
+          catchError(() => of(null)), // If geocode fails, continue without coordinates
+          switchMap((geo) => {
+            const request: CreateFacilityRequest = {
+              name: fac.name,
+              facilityType: fac.type as FacilityType,
+              address: fac.address,
+              latitude: geo?.latitude,
+              longitude: geo?.longitude,
+              gridRegion: geo?.gridRegion,
+            };
+            return this.facilityService.createFacility(request);
+          }),
+        );
+      });
+
+      forkJoin(facilityRequests).subscribe({
+        next: () => {
+          this.toast.success('All facilities saved successfully!');
+          this.currentStep.set(3);
+        },
+        error: (err: any) => {
+          console.error('Error saving facilities:', err);
+          this.toast.error('Some facilities could not be saved. Please try again.');
         },
       });
     } else if (this.currentStep() < this.totalSteps) {
@@ -93,8 +187,11 @@ export class OnboardingComponent {
   }
 
   finishOnboarding() {
-    console.log('Onboarding data:', this.onboardingForm.value);
-    // TODO: Save data to API when endpoint is available
-    this.router.navigate(['/settings']);
+    // If we are at Step 2 and have data, but chose to exit, we go to settings
+    if (this.currentStep() === 2) {
+      this.router.navigate(['/settings']);
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }

@@ -1,423 +1,482 @@
-@if (currentStep() === 1) {
-  <!-- Step 1: Eco-Profile -->
-  <header
-    class="w-full border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark sticky top-0 z-10 px-6 py-4"
+@if (isLoading()) {
+  <div
+    class="fixed inset-0 flex flex-col items-center justify-center bg-white dark:bg-slate-950 z-[100]"
   >
-    <div class="max-w-5xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-3 text-text-main dark:text-white">
-        <div class="w-8 h-8 text-primary">
-          <svg
-            class="w-full h-full"
-            fill="none"
-            viewbox="0 0 48 48"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </div>
-        <h2 class="text-xl font-bold leading-tight tracking-tight">Eco-Trace</h2>
-      </div>
-      <button
-        (click)="finishOnboarding()"
-        class="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-text-main dark:text-slate-100 text-sm font-bold transition-colors"
-      >
-        <span>Save & Exit</span>
-      </button>
-    </div>
-  </header>
-
-  <main class="flex-1 w-full flex flex-col items-center py-10 px-4 sm:px-6">
-    <div class="w-full max-w-2xl flex flex-col gap-8">
-      <div class="flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <div class="flex justify-between items-end">
-            <p class="text-text-main dark:text-white text-sm font-bold uppercase tracking-wider">
-              Step 1 of 3
-            </p>
-            <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
-              >33% Completed</span
+    <div
+      class="w-16 h-16 border-4 border-slate-200 dark:border-slate-800 border-t-primary rounded-full animate-spin mb-4"
+    ></div>
+    <p class="text-slate-500 dark:text-slate-400 font-medium animate-pulse">
+      Personalizing your experience...
+    </p>
+  </div>
+} @else {
+  @if (currentStep() === 1) {
+    <!-- Step 1: Eco-Profile -->
+    <header
+      class="w-full border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark sticky top-0 z-10 px-6 py-4"
+    >
+      <div class="max-w-5xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3 text-text-main dark:text-white">
+          <div class="w-8 h-8 text-primary">
+            <svg
+              class="w-full h-full"
+              fill="none"
+              viewbox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
             >
+              <path
+                d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                fill="currentColor"
+              ></path>
+            </svg>
           </div>
-          <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+          <h2 class="text-xl font-bold leading-tight tracking-tight">Eco-Trace</h2>
+        </div>
+        <button
+          (click)="finishOnboarding()"
+          class="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-text-main dark:text-slate-100 text-sm font-bold transition-colors"
+        >
+          <span>{{ translationService.translate('onboarding.saveExit') }}</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 w-full flex flex-col items-center py-10 px-4 sm:px-6">
+      <div class="w-full max-w-2xl flex flex-col gap-8">
+        <div class="flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-end">
+              <p class="text-text-main dark:text-white text-sm font-bold uppercase tracking-wider">
+                Step 1 of 3
+              </p>
+              <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
+                >33% Completed</span
+              >
+            </div>
+            <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-primary w-1/3 rounded-full shadow-[0_0_10px_rgba(19,236,91,0.5)]"
+              ></div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h1
+              class="text-3xl sm:text-4xl font-bold text-text-main dark:text-white tracking-tight"
+            >
+              {{ translationService.translate('onboarding.title') }}
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 text-lg">
+              {{ translationService.translate('onboarding.subtitle') }}
+            </p>
+          </div>
+        </div>
+
+        <form
+          [formGroup]="$any(onboardingForm.get('companyInfo'))"
+          class="bg-card-light dark:bg-card-dark p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col gap-6"
+        >
+          <h3
+            class="text-xl font-bold text-text-main dark:text-white border-b border-slate-100 dark:border-slate-700 pb-4"
+          >
+            {{ translationService.translate('onboarding.companyFundamentals') }}
+          </h3>
+          <div class="grid grid-cols-1 gap-6">
+            <label class="flex flex-col gap-2">
+              <span class="text-text-main dark:text-white text-base font-medium">{{
+                translationService.translate('onboarding.businessName')
+              }}</span>
+              <input
+                formControlName="businessName"
+                class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 px-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                placeholder="e.g. Green Logistics Ltd."
+                type="text"
+              />
+            </label>
+
+            <label class="flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-text-main dark:text-white text-base font-medium">{{
+                  translationService.translate('onboarding.fiscalId')
+                }}</span>
+                <div class="group relative flex items-center">
+                  <span
+                    class="material-symbols-outlined text-slate-400 text-[18px] cursor-help hover:text-primary transition-colors"
+                    >info</span
+                  >
+                  <div
+                    class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-2 bg-slate-900 text-white text-xs rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20 pointer-events-none text-center"
+                  >
+                    Used to verify your entity for official carbon credit reporting.
+                    <div
+                      class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <input
+                formControlName="fiscalId"
+                class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 px-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                placeholder="Enter tax ID"
+                type="text"
+              />
+            </label>
+
+            <label class="flex flex-col gap-2">
+              <span class="text-text-main dark:text-white text-base font-medium">{{
+                translationService.translate('onboarding.sector')
+              }}</span>
+              <div class="relative">
+                <span
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
+                  >search</span
+                >
+                <select
+                  formControlName="sector"
+                  class="form-select w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 pl-11 pr-10 text-text-main dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
+                >
+                  <option disabled="" selected="" value="">Select your primary industry...</option>
+                  <option value="manufacturing">Manufacturing</option>
+                  <option value="logistics">Logistics & Transportation</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="energy">Energy & Utilities</option>
+                  <option value="services">Professional Services</option>
+                  <option value="retail">Retail & E-commerce</option>
+                </select>
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
+                  >expand_more</span
+                >
+              </div>
+            </label>
+
+            <label class="flex flex-col gap-2">
+              <span class="text-text-main dark:text-white text-base font-medium">{{
+                translationService.translate('onboarding.location')
+              }}</span>
+              <div class="relative">
+                <span
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
+                  >location_on</span
+                >
+                <input
+                  formControlName="location"
+                  class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 pl-11 pr-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  placeholder="City, Country"
+                  type="text"
+                />
+              </div>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-end gap-4 mt-6 pt-6 border-t border-slate-100 dark:border-slate-700"
+          >
+            <button
+              (click)="nextStep()"
+              [disabled]="onboardingForm.get('companyInfo')?.invalid"
+              class="flex items-center justify-center gap-2 h-12 px-8 rounded-lg bg-primary hover:bg-primary-dark text-text-main text-base font-bold transition-all shadow-md shadow-primary/20 hover:shadow-primary/40 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              type="button"
+            >
+              <span>{{ translationService.translate('onboarding.continue') }}</span>
+              <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </button>
+          </div>
+        </form>
+        <div
+          class="flex items-center justify-center gap-2 text-slate-400 dark:text-slate-500 text-sm"
+        >
+          <span class="material-symbols-outlined text-[16px]">lock</span>
+          <span>Your data is encrypted and secure.</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Subtle Pattern ONLY for Step 1 -->
+    <div
+      class="fixed inset-0 pointer-events-none z-[-1] opacity-5 dark:opacity-10"
+      style="
+        background-image: radial-gradient(#13ec5b 1px, transparent 1px);
+        background-size: 40px 40px;
+      "
+    ></div>
+  } @else if (currentStep() === 2) {
+    <!-- Step 2: Facility Setup -->
+    <header
+      class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7f3eb] dark:border-white/10 px-6 lg:px-10 py-3 bg-surface-light dark:bg-surface-dark sticky top-0 z-50"
+    >
+      <div class="flex items-center gap-4">
+        <div class="text-primary size-8 flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl">eco</span>
+        </div>
+        <h2
+          class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-main dark:text-white"
+        >
+          Eco-Trace
+        </h2>
+      </div>
+      <div class="flex flex-1 justify-end gap-6 items-center">
+        <button
+          (click)="finishOnboarding()"
+          class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 dark:bg-primary/10 hover:bg-primary/30 text-text-main dark:text-primary font-bold text-sm transition-colors"
+        >
+          <span>{{ translationService.translate('onboarding.saveExit') }}</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center py-8 px-4 sm:px-8 lg:px-40">
+      <div class="w-full max-w-[1024px] flex flex-col gap-8">
+        <div class="flex flex-col gap-3">
+          <div class="flex justify-between items-end text-text-main dark:text-white">
+            <p class="text-sm font-bold">Step 2 of 3</p>
+            <p class="text-sm text-text-secondary dark:text-gray-400">Facility Setup</p>
+          </div>
+          <div class="h-2 w-full rounded-full bg-[#cfe7d7] dark:bg-gray-700 overflow-hidden">
             <div
-              class="h-full bg-primary w-1/3 rounded-full shadow-[0_0_10px_rgba(19,236,91,0.5)]"
+              class="h-full rounded-full bg-primary transition-all duration-500 ease-out"
+              style="width: 66%"
             ></div>
           </div>
         </div>
+
         <div class="flex flex-col gap-2">
-          <h1 class="text-3xl sm:text-4xl font-bold text-text-main dark:text-white tracking-tight">
-            Set up your Eco-Profile
+          <h1
+            class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] text-text-main dark:text-white"
+          >
+            Define your Facilities
           </h1>
-          <p class="text-slate-500 dark:text-slate-400 text-lg">
-            Let's start with the basics to tailor your sustainability roadmap.
+          <p class="text-text-secondary dark:text-gray-400 text-base md:text-lg max-w-2xl">
+            Tell us where you operate so we can calculate local emission factors accurately based on
+            the electric grid.
           </p>
-        </div>
-      </div>
-
-      <form
-        [formGroup]="$any(onboardingForm.get('companyInfo'))"
-        class="bg-card-light dark:bg-card-dark p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col gap-6"
-      >
-        <h3
-          class="text-xl font-bold text-text-main dark:text-white border-b border-slate-100 dark:border-slate-700 pb-4"
-        >
-          Company Fundamentals
-        </h3>
-        <div class="grid grid-cols-1 gap-6">
-          <label class="flex flex-col gap-2">
-            <span class="text-text-main dark:text-white text-base font-medium"
-              >Legal Business Name</span
-            >
-            <input
-              formControlName="businessName"
-              class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 px-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-              placeholder="e.g. Green Logistics Ltd."
-              type="text"
-            />
-          </label>
-
-          <label class="flex flex-col gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-text-main dark:text-white text-base font-medium"
-                >Fiscal ID (NIT/RUT)</span
-              >
-              <div class="group relative flex items-center">
-                <span
-                  class="material-symbols-outlined text-slate-400 text-[18px] cursor-help hover:text-primary transition-colors"
-                  >info</span
-                >
-                <div
-                  class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-2 bg-slate-900 text-white text-xs rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20 pointer-events-none text-center"
-                >
-                  Used to verify your entity for official carbon credit reporting.
-                  <div
-                    class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            <input
-              formControlName="fiscalId"
-              class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 px-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-              placeholder="Enter tax ID"
-              type="text"
-            />
-          </label>
-
-          <label class="flex flex-col gap-2">
-            <span class="text-text-main dark:text-white text-base font-medium"
-              >Industrial Sector</span
-            >
-            <div class="relative">
-              <span
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
-                >search</span
-              >
-              <select
-                formControlName="sector"
-                class="form-select w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 pl-11 pr-10 text-text-main dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
-              >
-                <option disabled="" selected="" value="">Select your primary industry...</option>
-                <option value="manufacturing">Manufacturing</option>
-                <option value="logistics">Logistics & Transportation</option>
-                <option value="agriculture">Agriculture</option>
-                <option value="energy">Energy & Utilities</option>
-                <option value="services">Professional Services</option>
-                <option value="retail">Retail & E-commerce</option>
-              </select>
-              <span
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
-                >expand_more</span
-              >
-            </div>
-          </label>
-
-          <label class="flex flex-col gap-2">
-            <span class="text-text-main dark:text-white text-base font-medium"
-              >Geographic Location</span
-            >
-            <div class="relative">
-              <span
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none"
-                >location_on</span
-              >
-              <input
-                formControlName="location"
-                class="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-input-light dark:bg-input-dark h-12 pl-11 pr-4 text-text-main dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                placeholder="City, Country"
-                type="text"
-              />
-            </div>
-          </label>
         </div>
 
         <div
-          class="flex items-center justify-end gap-4 mt-6 pt-6 border-t border-slate-100 dark:border-slate-700"
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-4"
+          [formGroup]="onboardingForm"
         >
-          <button
-            (click)="nextStep()"
-            [disabled]="onboardingForm.get('companyInfo')?.invalid"
-            class="flex items-center justify-center gap-2 h-12 px-8 rounded-lg bg-primary hover:bg-primary-dark text-text-main text-base font-bold transition-all shadow-md shadow-primary/20 hover:shadow-primary/40 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-            type="button"
-          >
-            <span>Continue</span>
-            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-          </button>
-        </div>
-      </form>
-      <div
-        class="flex items-center justify-center gap-2 text-slate-400 dark:text-slate-500 text-sm"
-      >
-        <span class="material-symbols-outlined text-[16px]">lock</span>
-        <span>Your data is encrypted and secure.</span>
-      </div>
-    </div>
-  </main>
-
-  <!-- Subtle Pattern ONLY for Step 1 -->
-  <div
-    class="fixed inset-0 pointer-events-none z-[-1] opacity-5 dark:opacity-10"
-    style="
-      background-image: radial-gradient(#13ec5b 1px, transparent 1px);
-      background-size: 40px 40px;
-    "
-  ></div>
-} @else {
-  <!-- Step 2: Facility Setup -->
-  <header
-    class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7f3eb] dark:border-white/10 px-6 lg:px-10 py-3 bg-surface-light dark:bg-surface-dark sticky top-0 z-50"
-  >
-    <div class="flex items-center gap-4">
-      <div class="text-primary size-8 flex items-center justify-center">
-        <span class="material-symbols-outlined text-3xl">eco</span>
-      </div>
-      <h2
-        class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-main dark:text-white"
-      >
-        Eco-Trace
-      </h2>
-    </div>
-    <div class="flex flex-1 justify-end gap-6 items-center">
-      <button
-        (click)="finishOnboarding()"
-        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 dark:bg-primary/10 hover:bg-primary/30 text-text-main dark:text-primary font-bold text-sm transition-colors"
-      >
-        <span>Save & Exit</span>
-      </button>
-    </div>
-  </header>
-
-  <main class="flex-grow flex flex-col items-center py-8 px-4 sm:px-8 lg:px-40">
-    <div class="w-full max-w-[1024px] flex flex-col gap-8">
-      <div class="flex flex-col gap-3">
-        <div class="flex justify-between items-end text-text-main dark:text-white">
-          <p class="text-sm font-bold">Step 2 of 3</p>
-          <p class="text-sm text-text-secondary dark:text-gray-400">Facility Setup</p>
-        </div>
-        <div class="h-2 w-full rounded-full bg-[#cfe7d7] dark:bg-gray-700 overflow-hidden">
-          <div
-            class="h-full rounded-full bg-primary transition-all duration-500 ease-out"
-            style="width: 66%"
-          ></div>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <h1
-          class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] text-text-main dark:text-white"
-        >
-          Define your Facilities
-        </h1>
-        <p class="text-text-secondary dark:text-gray-400 text-base md:text-lg max-w-2xl">
-          Tell us where you operate so we can calculate local emission factors accurately based on
-          the electric grid.
-        </p>
-      </div>
-
-      <div
-        class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-4"
-        [formGroup]="onboardingForm"
-      >
-        <!-- Left Column: Form -->
-        <div class="lg:col-span-7 flex flex-col gap-6" formArrayName="facilities">
-          @for (facility of facilities.controls; track $index) {
-            <div
-              [formGroupName]="$index"
-              class="bg-surface-light dark:bg-surface-dark border border-[#cfe7d7] dark:border-white/10 rounded-xl p-6 shadow-sm relative group transition-all hover:shadow-md"
-            >
+          <!-- Left Column: Form -->
+          <div class="lg:col-span-7 flex flex-col gap-6" formArrayName="facilities">
+            @for (facility of facilities.controls; track $index) {
               <div
-                class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                [formGroupName]="$index"
+                class="bg-surface-light dark:bg-surface-dark border border-[#cfe7d7] dark:border-white/10 rounded-xl p-6 shadow-sm relative group transition-all hover:shadow-md"
               >
-                <button
-                  (click)="removeFacility($index)"
-                  class="text-gray-400 hover:text-red-500 transition-colors"
-                  title="Remove Facility"
+                <div
+                  class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <span class="material-symbols-outlined text-xl">delete</span>
-                </button>
-              </div>
-              <div class="flex flex-col gap-5">
-                <div class="flex items-center gap-2 mb-1">
-                  <div class="bg-primary/20 p-2 rounded-lg text-text-main dark:text-primary">
-                    <span class="material-symbols-outlined text-xl">domain</span>
-                  </div>
-                  <h3 class="font-bold text-lg text-text-main dark:text-white">
-                    Facility #{{ $index + 1 }}
-                  </h3>
+                  <button
+                    (click)="removeFacility($index)"
+                    class="text-gray-400 hover:text-red-500 transition-colors"
+                    title="Remove Facility"
+                  >
+                    <span class="material-symbols-outlined text-xl">delete</span>
+                  </button>
                 </div>
-
-                <label class="flex flex-col gap-2">
-                  <span class="text-sm font-semibold text-text-main dark:text-gray-300"
-                    >Facility Name</span
-                  >
-                  <input
-                    formControlName="name"
-                    class="form-input w-full rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 dark:text-white"
-                    placeholder="e.g., Main Plant HQ"
-                    type="text"
-                  />
-                </label>
-
-                <label class="flex flex-col gap-2">
-                  <span class="text-sm font-semibold text-text-main dark:text-gray-300"
-                    >Facility Type</span
-                  >
-                  <div class="relative">
-                    <select
-                      formControlName="type"
-                      class="form-select w-full appearance-none rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all dark:text-white pr-10"
-                    >
-                      <option disabled="" selected="" value="">Select facility type...</option>
-                      <option value="office">Corporate Office</option>
-                      <option value="warehouse">Warehouse & Distribution</option>
-                      <option value="factory">Manufacturing Plant</option>
-                      <option value="retail">Retail Store</option>
-                    </select>
-                    <div
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-text-secondary"
-                    >
-                      <span class="material-symbols-outlined">expand_more</span>
+                <div class="flex flex-col gap-5">
+                  <div class="flex items-center gap-2 mb-1">
+                    <div class="bg-primary/20 p-2 rounded-lg text-text-main dark:text-primary">
+                      <span class="material-symbols-outlined text-xl">domain</span>
                     </div>
+                    <h3 class="font-bold text-lg text-text-main dark:text-white">
+                      Facility #{{ $index + 1 }}
+                    </h3>
                   </div>
-                </label>
 
-                <label class="flex flex-col gap-2">
-                  <span class="text-sm font-semibold text-text-main dark:text-gray-300"
-                    >Full Address</span
-                  >
-                  <div class="relative">
+                  <label class="flex flex-col gap-2">
+                    <span class="text-sm font-semibold text-text-main dark:text-gray-300"
+                      >Facility Name</span
+                    >
                     <input
-                      formControlName="address"
-                      class="form-input w-full rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 dark:text-white pr-10"
-                      placeholder="Start typing to search address..."
+                      formControlName="name"
+                      class="form-input w-full rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 dark:text-white"
+                      placeholder="e.g., Main Plant HQ"
                       type="text"
                     />
-                    <div
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-primary"
+                  </label>
+
+                  <label class="flex flex-col gap-2">
+                    <span class="text-sm font-semibold text-text-main dark:text-gray-300"
+                      >Facility Type</span
                     >
-                      <span class="material-symbols-outlined">search</span>
+                    <div class="relative">
+                      <select
+                        formControlName="type"
+                        class="form-select w-full appearance-none rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all dark:text-white pr-10"
+                      >
+                        <option disabled="" selected="" value="">Select facility type...</option>
+                        <option value="office">Corporate Office</option>
+                        <option value="warehouse">Warehouse & Distribution</option>
+                        <option value="factory">Manufacturing Plant</option>
+                        <option value="retail">Retail Store</option>
+                      </select>
+                      <div
+                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-text-secondary"
+                      >
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </div>
                     </div>
-                  </div>
-                  <p class="text-xs text-text-secondary dark:text-gray-500">
-                    We use this to determine your regional energy grid mix.
-                  </p>
-                </label>
-              </div>
-            </div>
-          }
+                  </label>
 
-          <button
-            (click)="addFacility()"
-            class="flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#cfe7d7] dark:border-gray-700 bg-transparent py-4 text-text-secondary dark:text-gray-400 hover:border-primary hover:bg-primary/5 hover:text-primary transition-all group"
-          >
-            <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
-              >add_circle</span
-            >
-            <span class="font-bold">Add another facility</span>
-          </button>
-        </div>
-
-        <!-- Right Column: Map Preview -->
-        <div class="lg:col-span-5 flex flex-col h-full">
-          <div class="sticky top-24 flex flex-col gap-4">
-            <div
-              class="relative w-full aspect-[4/5] lg:aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-[#cfe7d7] dark:border-white/10 group"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style="
-                  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOlJO_ff0Z8L36LvvHgj27Ql_UJ3B0CrOXfcs6A2DXxeZCuxsJLibKZ-bidTdNQVFXoT6kaUO4oD3pN-mE8vynpfyv_EwAPIWC2t_1VGcT5I43GzOl1RNkSTOnmrbeU8KkXDR5RVLhVdyB2whoxsIjuSwXM8PqGtk6yeQHV9O_2lN78O3qeJNgl_pcEY20Q7kLGnUUZxoIco4K4pMh5CAhxLIeNsJ7qhMDZasTUCo0rX7a7tCTHeQhNCIlK8qFfSBncsa5ngPL4zBr');
-                "
-              >
-                <div class="absolute inset-0 bg-black/10 dark:bg-black/30"></div>
+                  <label class="flex flex-col gap-2">
+                    <span class="text-sm font-semibold text-text-main dark:text-gray-300"
+                      >Full Address</span
+                    >
+                    <div class="relative">
+                      <input
+                        formControlName="address"
+                        class="form-input w-full rounded-lg border border-[#cfe7d7] dark:border-gray-600 bg-white dark:bg-black/20 px-4 py-3 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 dark:text-white pr-10"
+                        placeholder="Start typing to search address..."
+                        type="text"
+                      />
+                      <div
+                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-primary"
+                      >
+                        <span class="material-symbols-outlined">search</span>
+                      </div>
+                    </div>
+                    <p class="text-xs text-text-secondary dark:text-gray-500">
+                      We use this to determine your regional energy grid mix.
+                    </p>
+                  </label>
+                </div>
               </div>
-              <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
+            }
+
+            <button
+              (click)="addFacility()"
+              class="flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#cfe7d7] dark:border-gray-700 bg-transparent py-4 text-text-secondary dark:text-gray-400 hover:border-primary hover:bg-primary/5 hover:text-primary transition-all group"
+            >
+              <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                >add_circle</span
               >
-                <span
-                  class="material-symbols-outlined text-5xl text-primary drop-shadow-xl animate-bounce"
-                  >location_on</span
+              <span class="font-bold">Add another facility</span>
+            </button>
+          </div>
+
+          <!-- Right Column: Map Preview -->
+          <div class="lg:col-span-5 flex flex-col h-full">
+            <div class="sticky top-24 flex flex-col gap-4">
+              <div
+                class="relative w-full aspect-[4/5] lg:aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-[#cfe7d7] dark:border-white/10 group"
+              >
+                <div
+                  class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOlJO_ff0Z8L36LvvHgj27Ql_UJ3B0CrOXfcs6A2DXxeZCuxsJLibKZ-bidTdNQVFXoT6kaUO4oD3pN-mE8vynpfyv_EwAPIWC2t_1VGcT5I43GzOl1RNkSTOnmrbeU8KkXDR5RVLhVdyB2whoxsIjuSwXM8PqGtk6yeQHV9O_2lN78O3qeJNgl_pcEY20Q7kLGnUUZxoIco4K4pMh5CAhxLIeNsJ7qhMDZasTUCo0rX7a7tCTHeQhNCIlK8qFfSBncsa5ngPL4zBr');
+                  "
                 >
-                <div class="h-3 w-8 bg-black/30 rounded-full blur-sm mt-[-5px]"></div>
-              </div>
-              <div
-                class="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-xl"
-              >
-                <div class="flex items-start gap-3 text-text-main dark:text-white">
-                  <div class="bg-primary/20 p-2 rounded-full shrink-0">
-                    <span class="material-symbols-outlined text-xl text-primary"
-                      >electric_bolt</span
-                    >
-                  </div>
-                  <div class="flex flex-col gap-1">
-                    <p
-                      class="text-xs font-bold uppercase tracking-wider text-text-secondary dark:text-gray-400"
-                    >
-                      Local Grid Factor
-                    </p>
-                    <p class="text-sm font-bold">US-WECC (Seattle)</p>
-                    <p class="text-xs">
-                      <span class="font-bold text-primary">0.42</span> kgCO2e/kWh
-                    </p>
+                  <div class="absolute inset-0 bg-black/10 dark:bg-black/30"></div>
+                </div>
+                <div
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-5xl text-primary drop-shadow-xl animate-bounce"
+                    >location_on</span
+                  >
+                  <div class="h-3 w-8 bg-black/30 rounded-full blur-sm mt-[-5px]"></div>
+                </div>
+                <div
+                  class="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-xl"
+                >
+                  <div class="flex items-start gap-3 text-text-main dark:text-white">
+                    <div class="bg-primary/20 p-2 rounded-full shrink-0">
+                      <span class="material-symbols-outlined text-xl text-primary"
+                        >electric_bolt</span
+                      >
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <p
+                        class="text-xs font-bold uppercase tracking-wider text-text-secondary dark:text-gray-400"
+                      >
+                        Local Grid Factor
+                      </p>
+                      <p class="text-sm font-bold">US-WECC (Seattle)</p>
+                      <p class="text-xs">
+                        <span class="font-bold text-primary">0.42</span> kgCO2e/kWh
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="flex gap-3 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30"
-            >
-              <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 shrink-0"
-                >info</span
+              <div
+                class="flex gap-3 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30"
               >
-              <p class="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
-                <strong>Why location matters:</strong> Emission factors vary by region. Cleaner
-                hydro power in hydro-rich regions.
-              </p>
+                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 shrink-0"
+                  >info</span
+                >
+                <p class="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
+                  <strong>Why location matters:</strong> Emission factors vary by region. Cleaner
+                  hydro power in hydro-rich regions.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="flex items-center justify-between pt-8 border-t border-[#e7f3eb] dark:border-white/10 mt-4"
-      >
-        <button
-          (click)="prevStep()"
-          class="flex items-center gap-2 px-6 py-3 rounded-lg text-text-main dark:text-gray-300 font-bold hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+        <div
+          class="flex items-center justify-between pt-8 border-t border-[#e7f3eb] dark:border-white/10 mt-4"
         >
-          <span class="material-symbols-outlined text-sm">arrow_back</span> Back
-        </button>
+          <button
+            (click)="prevStep()"
+            class="flex items-center gap-2 px-6 py-3 rounded-lg text-text-main dark:text-gray-300 font-bold hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+          >
+            <span class="material-symbols-outlined text-sm">arrow_back</span> Back
+          </button>
+          <button
+            (click)="nextStep()"
+            [disabled]="facilities.invalid"
+            class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-text-main font-bold px-8 py-3 rounded-lg shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ translationService.translate('onboarding.continue') }}
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  } @else if (currentStep() === 3) {
+    <!-- Step 3: Success / Finalize -->
+    <header
+      class="w-full border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark sticky top-0 z-10 px-6 py-4"
+    >
+      <div class="max-w-5xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3 text-text-main dark:text-white">
+          <div class="text-primary size-8">
+            <span class="material-symbols-outlined text-3xl">eco</span>
+          </div>
+          <h2 class="text-xl font-bold leading-tight tracking-tight">Eco-Trace</h2>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center py-20 px-4">
+      <div class="w-full max-w-lg flex flex-col items-center text-center gap-8">
+        <div
+          class="size-24 rounded-full bg-primary/20 flex items-center justify-center text-primary animate-bounce"
+        >
+          <span class="material-symbols-outlined text-6xl">check_circle</span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h1 class="text-4xl font-black text-text-main dark:text-white">You're all set!</h1>
+          <p class="text-slate-500 dark:text-slate-400 text-lg">
+            Your organization and facilities have been successfully configured. You're ready to
+            start tracking your carbon footprint.
+          </p>
+        </div>
+
+        <div class="w-full h-2 rounded-full bg-[#cfe7d7] dark:bg-gray-700 overflow-hidden mb-4">
+          <div class="h-full rounded-full bg-primary" style="width: 100%"></div>
+        </div>
+
         <button
           (click)="finishOnboarding()"
-          [disabled]="onboardingForm.invalid"
-          class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-text-main font-bold px-8 py-3 rounded-lg shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-text-main font-bold py-4 rounded-xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-95"
         >
-          Complete Setup <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          Enter Dashboard <span class="material-symbols-outlined">rocket_launch</span>
         </button>
       </div>
-    </div>
-  </main>
+    </main>
+  }
 }

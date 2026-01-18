@@ -47,6 +47,10 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  public getUserName(): string | null {
+    return this.getUserFromStorage()?.fullName || null;
+  }
+
   private setSession(authResponse: AuthResponse): void {
     localStorage.setItem('accessToken', authResponse.accessToken);
     localStorage.setItem('refreshToken', authResponse.refreshToken);

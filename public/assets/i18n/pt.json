@@ -1,0 +1,200 @@
+{
+  "auth": {
+    "hero": {
+      "title": "Impulsione a transição verde da sua empresa",
+      "subtitle": "Junte-se a mais de 500 PMEs que rastreiam sua pegada de carbono hoje. Simplifique a gestão de sustentabilidade com nossa plataforma intuitiva.",
+      "trustedBy": "Confiado por líderes em sustentabilidade"
+    },
+    "tabs": {
+      "login": "Entrar",
+      "signup": "Cadastrar"
+    },
+    "welcome": {
+      "loginTitle": "Bem-vindo de volta",
+      "signupTitle": "Crie sua conta",
+      "loginSubtitle": "Entre para gerenciar a transição verde da sua empresa",
+      "signupSubtitle": "Comece seu teste gratuito de 14 dias. Não é necessário cartão de crédito."
+    },
+    "social": {
+      "google": "Google",
+      "microsoft": "Microsoft"
+    },
+    "divider": {
+      "login": "Ou entre com e-mail",
+      "signup": "Ou cadastre-se com e-mail"
+    },
+    "form": {
+      "fullName": "Nome Completo",
+      "fullNamePlaceholder": "João Silva",
+      "email": "E-mail Corporativo",
+      "emailPlaceholder": "nome@empresa.com",
+      "password": "Senha",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Esqueceu a senha?",
+      "passwordHelper": "Pelo menos 8 caracteres"
+    },
+    "buttons": {
+      "login": "Entrar",
+      "createAccount": "Criar Conta"
+    },
+    "footer": {
+      "noAccount": "Não tem uma conta?",
+      "hasAccount": "Já tem uma conta?",
+      "signupLink": "Cadastre-se",
+      "loginLink": "Entrar",
+      "terms": "Ao clicar em \"{{action}}\", você concorda com nossos",
+      "termsLink": "Termos de Serviço",
+      "and": "e",
+      "privacyLink": "Política de Privacidade",
+      "sslSecured": "Conexão Segura SSL"
+    }
+  },
+  "onboarding": {
+    "title": "Configure seu Eco-Perfil",
+    "subtitle": "Vamos começar com o básico para personalizar seu roteiro de sustentabilidade.",
+    "companyFundamentals": "Fundamentos da Empresa",
+    "businessName": "Nome Legal da Empresa",
+    "businessNamePlaceholder": "ex. Logística Verde Ltda.",
+    "fiscalId": "ID Fiscal (CNPJ/CPF)",
+    "fiscalIdPlaceholder": "Digite o ID fiscal",
+    "fiscalIdTooltip": "Usado para verificar sua entidade para relatórios oficiais de créditos de carbono.",
+    "sector": "Setor Industrial",
+    "sectorPlaceholder": "Selecione seu setor principal...",
+    "sectorOptions": {
+      "manufacturing": "Manufatura",
+      "logistics": "Logística e Transporte",
+      "agriculture": "Agricultura",
+      "energy": "Energia e Serviços Públicos",
+      "services": "Serviços Profissionais",
+      "retail": "Varejo e E-commerce"
+    },
+    "location": "Localização Geográfica",
+    "locationPlaceholder": "Cidade, País",
+    "continue": "Continuar",
+    "saveExit": "Salvar e Sair",
+    "step": "Etapa {{current}} de {{total}}",
+    "percentComplete": "{{percent}}% Concluído",
+    "dataSecure": "Seus dados estão criptografados e seguros.",
+    "facility": {
+      "title": "Defina suas Instalações",
+      "subtitle": "Diga-nos onde você opera para que possamos calcular com precisão os fatores de emissão locais com base na rede elétrica.",
+      "stepTitle": "Configuração de Instalações",
+      "facilityNumber": "Instalação #{{number}}",
+      "name": "Nome da Instalação",
+      "namePlaceholder": "ex., Planta Principal",
+      "type": "Tipo de Instalação",
+      "typePlaceholder": "Selecione o tipo de instalação...",
+      "typeOptions": {
+        "office": "Escritório Corporativo",
+        "warehouse": "Armazém e Distribuição",
+        "factory": "Planta de Manufatura",
+        "retail": "Loja de Varejo"
+      },
+      "address": "Endereço Completo",
+      "addressPlaceholder": "Comece a digitar para buscar endereço...",
+      "addressHelper": "Usamos isso para determinar a matriz energética regional.",
+      "addAnother": "Adicionar outra instalação",
+      "back": "Voltar",
+      "gridFactor": "Fator de Rede Local",
+      "gridExample": "US-WECC (Seattle)",
+      "whyLocation": "Por que a localização importa:",
+      "whyLocationText": "Os fatores de emissão variam por região. Energia hidrelétrica mais limpa em regiões ricas em hidro."
+    },
+    "success": {
+      "title": "Tudo pronto!",
+      "subtitle": "Sua organização e instalações foram configuradas com sucesso. Você está pronto para começar a rastrear sua pegada de carbono.",
+      "enterDashboard": "Entrar no Painel"
+    },
+    "loading": "Personalizando sua experiência..."
+  },
+  "dashboard": {
+    "title": "Visão Geral de Sustentabilidade",
+    "greeting": "Bom dia, Sarah! Aqui está seu resumo diário de sustentabilidade.",
+    "dateRange": "Últimos 12 Meses",
+    "exportReport": "Exportar Relatório",
+    "export": "Exportar",
+    "workspacePrep": "Preparação do Espaço de Trabalho",
+    "workspacePrepText": "Estamos configurando seu painel personalizado. Seu inventário de GEE e ferramentas de redução estarão disponíveis aqui em breve."
+  },
+  "settings": {
+    "title": "Configurações da Organização",
+    "description": "Atualize os detalhes legais e preferências da sua organização.",
+    "save": "Salvar Alterações",
+    "saveSuccess": "Configurações atualizadas com sucesso!",
+    "saveError": "Falha ao atualizar as configurações. Por favor, tente novamente.",
+    "language": "Idioma Padrão",
+    "sections": {
+      "details": "Detalhes da Organização",
+      "brand": "Identidade da Marca",
+      "regional": "Preferências Regionais"
+    },
+    "labels": {
+      "legalName": "Nome Legal",
+      "legalNamePlaceholder": "ex. Acme Sustentável Corp.",
+      "fiscalId": "ID Legal (CNPJ/CPF)",
+      "fiscalIdPlaceholder": "XX.XXX.XXX/XXXX-XX",
+      "sector": "Setor Industrial",
+      "currency": "Moeda Padrão",
+      "units": "Unidades de Medida",
+      "distance": "Distância",
+      "volume": "Volume"
+    },
+    "brand": {
+      "currentLogo": "Logo Atual",
+      "uploadTitle": "Clique para enviar",
+      "uploadText": "ou arraste e solte",
+      "uploadHelper": "SVG, PNG, JPG ou GIF (máx. 400x400px)"
+    },
+    "currencies": {
+      "usd": "USD - Dólar Americano ($)",
+      "eur": "EUR - Euro (€)",
+      "gbp": "GBP - Libra Esterlina (£)",
+      "mxn": "MXN - Peso Mexicano ($)",
+      "cop": "COP - Peso Colombiano ($)",
+      "brl": "BRL - Real Brasileiro (R$)"
+    },
+    "languages": {
+      "en": "English (EN)",
+      "es": "Español (ES)",
+      "pt": "Português (PT)"
+    },
+    "units": {
+      "km": "KM",
+      "miles": "Milhas",
+      "gallons": "Gal",
+      "liters": "Litros"
+    },
+    "sectors": {
+      "manufacturing": "Manufatura",
+      "technology": "Tecnologia e Software",
+      "retail": "Varejo e E-commerce",
+      "energy": "Energia e Serviços Públicos",
+      "transportation": "Transporte e Logística"
+    }
+  },
+  "nav": {
+    "platform": "Plataforma",
+    "dashboard": "Painel",
+    "dataEntry": "Entrada de Dados",
+    "reports": "Relatórios",
+    "recommendations": "Recomendações",
+    "system": "Sistema",
+    "settings": "Configurações",
+    "support": "Suporte",
+    "settingsMenu": {
+      "title": "Configurações",
+      "general": "Geral",
+      "facilities": "Instalações",
+      "users": "Usuários",
+      "billing": "Faturamento"
+    },
+    "ecoTip": {
+      "title": "Dica Ecológica",
+      "message": "Mudar para fontes de energia renovável pode reduzir sua pegada de carbono em até 40%."
+    },
+    "returnToDashboard": "Voltar ao Painel",
+    "logout": "Sair",
+    "generalInfo": "Informações Gerais",
+    "notifications": "Notificações"
+  }
+}

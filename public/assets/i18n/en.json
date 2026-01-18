@@ -1,0 +1,200 @@
+{
+  "auth": {
+    "hero": {
+      "title": "Empower your company's green transition",
+      "subtitle": "Join 500+ SMEs tracking their carbon footprint today. Simplify sustainability management with our intuitive platform.",
+      "trustedBy": "Trusted by sustainability leaders"
+    },
+    "tabs": {
+      "login": "Login",
+      "signup": "Sign Up"
+    },
+    "welcome": {
+      "loginTitle": "Welcome back",
+      "signupTitle": "Create your account",
+      "loginSubtitle": "Sign in to manage your company's green transition",
+      "signupSubtitle": "Start your 14-day free trial. No credit card required."
+    },
+    "social": {
+      "google": "Google",
+      "microsoft": "Microsoft"
+    },
+    "divider": {
+      "login": "Or login with email",
+      "signup": "Or register with email"
+    },
+    "form": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Work Email",
+      "emailPlaceholder": "name@company.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot password?",
+      "passwordHelper": "At least 8 characters"
+    },
+    "buttons": {
+      "login": "Log In",
+      "createAccount": "Create Account"
+    },
+    "footer": {
+      "noAccount": "Don't have an account?",
+      "hasAccount": "Already have an account?",
+      "signupLink": "Sign Up",
+      "loginLink": "Log in",
+      "terms": "By clicking \"{{action}}\", you agree to our",
+      "termsLink": "Terms of Service",
+      "and": "and",
+      "privacyLink": "Privacy Policy",
+      "sslSecured": "SSL Secured Connection"
+    }
+  },
+  "onboarding": {
+    "title": "Set up your Eco-Profile",
+    "subtitle": "Let's start with the basics to tailor your sustainability roadmap.",
+    "companyFundamentals": "Company Fundamentals",
+    "businessName": "Legal Business Name",
+    "businessNamePlaceholder": "e.g. Green Logistics Ltd.",
+    "fiscalId": "Fiscal ID (NIT/RUT)",
+    "fiscalIdPlaceholder": "Enter tax ID",
+    "fiscalIdTooltip": "Used to verify your entity for official carbon credit reporting.",
+    "sector": "Industrial Sector",
+    "sectorPlaceholder": "Select your primary industry...",
+    "sectorOptions": {
+      "manufacturing": "Manufacturing",
+      "logistics": "Logistics & Transportation",
+      "agriculture": "Agriculture",
+      "energy": "Energy & Utilities",
+      "services": "Professional Services",
+      "retail": "Retail & E-commerce"
+    },
+    "location": "Geographic Location",
+    "locationPlaceholder": "City, Country",
+    "continue": "Continue",
+    "saveExit": "Save & Exit",
+    "step": "Step {{current}} of {{total}}",
+    "percentComplete": "{{percent}}% Completed",
+    "dataSecure": "Your data is encrypted and secure.",
+    "facility": {
+      "title": "Define your Facilities",
+      "subtitle": "Tell us where you operate so we can calculate local emission factors accurately based on the electric grid.",
+      "stepTitle": "Facility Setup",
+      "facilityNumber": "Facility #{{number}}",
+      "name": "Facility Name",
+      "namePlaceholder": "e.g., Main Plant HQ",
+      "type": "Facility Type",
+      "typePlaceholder": "Select facility type...",
+      "typeOptions": {
+        "office": "Corporate Office",
+        "warehouse": "Warehouse & Distribution",
+        "factory": "Manufacturing Plant",
+        "retail": "Retail Store"
+      },
+      "address": "Full Address",
+      "addressPlaceholder": "Start typing to search address...",
+      "addressHelper": "We use this to determine your regional energy grid mix.",
+      "addAnother": "Add another facility",
+      "back": "Back",
+      "gridFactor": "Local Grid Factor",
+      "gridExample": "US-WECC (Seattle)",
+      "whyLocation": "Why location matters:",
+      "whyLocationText": "Emission factors vary by region. Cleaner hydro power in hydro-rich regions."
+    },
+    "success": {
+      "title": "You're all set!",
+      "subtitle": "Your organization and facilities have been successfully configured. You're ready to start tracking your carbon footprint.",
+      "enterDashboard": "Enter Dashboard"
+    },
+    "loading": "Personalizing your experience..."
+  },
+  "dashboard": {
+    "title": "Sustainability Overview",
+    "greeting": "Good morning, Sarah! Here's your daily sustainability summary.",
+    "dateRange": "Last 12 Months",
+    "exportReport": "Export Report",
+    "export": "Export",
+    "workspacePrep": "Workspace Preparation",
+    "workspacePrepText": "We're setting up your custom dashboard. Your GHG inventory and reduction tools will be available here soon."
+  },
+  "settings": {
+    "title": "Organization Settings",
+    "description": "Update your organization's legal details and preferences.",
+    "save": "Save Changes",
+    "saveSuccess": "Settings updated successfully!",
+    "saveError": "Failed to update settings. Please try again.",
+    "language": "Default Language",
+    "sections": {
+      "details": "Organization Details",
+      "brand": "Brand Identity",
+      "regional": "Regional Preferences"
+    },
+    "labels": {
+      "legalName": "Legal Name",
+      "legalNamePlaceholder": "e.g. Acme Sustainable Corp.",
+      "fiscalId": "Legal ID (Tax ID/EIN)",
+      "fiscalIdPlaceholder": "XX-XXXXXXX",
+      "sector": "Industry Sector",
+      "currency": "Default Currency",
+      "units": "Units of Measure",
+      "distance": "Distance",
+      "volume": "Volume"
+    },
+    "brand": {
+      "currentLogo": "Current Logo",
+      "uploadTitle": "Click to upload",
+      "uploadText": "or drag and drop",
+      "uploadHelper": "SVG, PNG, JPG or GIF (max. 400x400px)"
+    },
+    "currencies": {
+      "usd": "USD - US Dollar ($)",
+      "eur": "EUR - Euro (€)",
+      "gbp": "GBP - British Pound (£)",
+      "mxn": "MXN - Mexican Peso ($)",
+      "cop": "COP - Colombian Peso ($)",
+      "brl": "BRL - Brazilian Real (R$)"
+    },
+    "languages": {
+      "en": "English (EN)",
+      "es": "Español (ES)",
+      "pt": "Português (PT)"
+    },
+    "units": {
+      "km": "KM",
+      "miles": "Miles",
+      "gallons": "Gal",
+      "liters": "Liters"
+    },
+    "sectors": {
+      "manufacturing": "Manufacturing",
+      "technology": "Technology & Software",
+      "retail": "Retail & E-commerce",
+      "energy": "Energy & Utilities",
+      "transportation": "Transportation & Logistics"
+    }
+  },
+  "nav": {
+    "platform": "Platform",
+    "dashboard": "Dashboard",
+    "dataEntry": "Data Entry",
+    "reports": "Reports",
+    "recommendations": "Recommendations",
+    "system": "System",
+    "settings": "Settings",
+    "support": "Support",
+    "settingsMenu": {
+      "title": "Settings",
+      "general": "General",
+      "facilities": "Facilities",
+      "users": "Users",
+      "billing": "Billing"
+    },
+    "ecoTip": {
+      "title": "Eco Tip",
+      "message": "Switching to renewable energy sources can reduce your carbon footprint by up to 40%."
+    },
+    "returnToDashboard": "Return to Dashboard",
+    "logout": "Logout",
+    "generalInfo": "General Info",
+    "notifications": "Notifications"
+  }
+}

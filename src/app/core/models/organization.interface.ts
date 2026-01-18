@@ -8,6 +8,7 @@ export interface Organization {
   defaultCurrency: 'USD' | 'EUR' | 'GBP' | 'MXN' | 'COP' | 'BRL';
   distanceUnit: 'km' | 'miles';
   volumeUnit: 'liters' | 'gallons';
+  language: 'en' | 'es';
   memberCount: number;
   facilityCount: number;
   createdAt: string;
@@ -22,6 +23,7 @@ export interface CreateOrganizationRequest {
   defaultCurrency?: string;
   distanceUnit?: string;
   volumeUnit?: string;
+  language?: string;
 }
 
 export interface CreateOrganizationResponse {

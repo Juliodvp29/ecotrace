@@ -9,6 +9,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = authService.getToken();
 
+  // Skip assets requests
+  if (req.url.startsWith('assets/') || req.url.startsWith('/assets/')) {
+    return next(req);
+  }
+
   let authReq = req;
   if (token) {
     authReq = req.clone({

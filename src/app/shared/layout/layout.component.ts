@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-layout',
@@ -15,6 +16,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class LayoutComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
+  public translationService = inject(TranslationService);
 
   currentUser = toSignal(this.authService.currentUser$);
 
