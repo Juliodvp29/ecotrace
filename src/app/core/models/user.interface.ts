@@ -5,4 +5,5 @@ export interface User {
   role: string;
   avatarUrl: string | null;
   authProvider: string;
+  onboardingCompleted?: boolean;
 }

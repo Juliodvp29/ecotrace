@@ -10,7 +10,7 @@
   </div>
 
   <!-- Form Container -->
-  <form class="flex flex-col gap-8" (submit)="$event.preventDefault()">
+  <form class="flex flex-col gap-8" [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
     <!-- Section 1: Organization Details -->
     <div
       class="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800"
@@ -25,10 +25,10 @@
         <label class="flex flex-col gap-2">
           <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Legal Name</span>
           <input
+            formControlName="legalName"
             class="form-input w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors"
             placeholder="e.g. Acme Sustainable Corp."
             type="text"
-            value="Acme Corp"
           />
         </label>
         <label class="flex flex-col gap-2">
@@ -36,10 +36,10 @@
             >Legal ID (Tax ID/EIN)</span
           >
           <input
-            class="form-input w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors"
+            formControlName="fiscalId"
+            class="form-input w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors opacity-60 cursor-not-allowed"
             placeholder="XX-XXXXXXX"
             type="text"
-            value="88-2910441"
           />
         </label>
         <label class="flex flex-col gap-2 md:col-span-2">
@@ -48,13 +48,14 @@
           >
           <div class="relative">
             <select
+              formControlName="industrySector"
               class="form-select w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 px-4 transition-colors appearance-none cursor-pointer"
             >
-              <option>Manufacturing</option>
-              <option selected="">Technology & Software</option>
-              <option>Retail & E-commerce</option>
-              <option>Energy & Utilities</option>
-              <option>Transportation & Logistics</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Technology & Software">Technology & Software</option>
+              <option value="Retail & E-commerce">Retail & E-commerce</option>
+              <option value="Energy & Utilities">Energy & Utilities</option>
+              <option value="Transportation & Logistics">Transportation & Logistics</option>
             </select>
             <span
               class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined pointer-events-none text-slate-400"
@@ -137,12 +138,15 @@
               >payments</span
             >
             <select
+              formControlName="defaultCurrency"
               class="form-select w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-text-main dark:text-white focus:border-primary focus:ring-primary py-3 pl-11 pr-4 transition-colors appearance-none"
             >
-              <option selected="" value="USD">USD - US Dollar ($)</option>
+              <option value="USD">USD - US Dollar ($)</option>
               <option value="EUR">EUR - Euro (€)</option>
               <option value="GBP">GBP - British Pound (£)</option>
-              <option value="JPY">JPY - Japanese Yen (¥)</option>
+              <option value="MXN">MXN - Mexican Peso ($)</option>
+              <option value="COP">COP - Colombian Peso ($)</option>
+              <option value="BRL">BRL - Brazilian Real (R$)</option>
             </select>
           </div>
         </label>
@@ -161,14 +165,20 @@
               class="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm"
             >
               <button
-                class="px-3 py-1 text-xs font-bold rounded-md bg-primary text-slate-900 shadow-sm transition-all"
                 type="button"
+                (click)="setDistanceUnit('km')"
+                [class.bg-primary]="settingsForm.get('distanceUnit')?.value === 'km'"
+                [class.text-slate-900]="settingsForm.get('distanceUnit')?.value === 'km'"
+                class="px-3 py-1 text-xs font-bold rounded-md transition-all hove:bg-slate-100 dark:hover:bg-slate-700"
               >
                 KM
               </button>
               <button
-                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
                 type="button"
+                (click)="setDistanceUnit('miles')"
+                [class.bg-primary]="settingsForm.get('distanceUnit')?.value === 'miles'"
+                [class.text-slate-900]="settingsForm.get('distanceUnit')?.value === 'miles'"
+                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
               >
                 Miles
               </button>
@@ -185,14 +195,20 @@
               class="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm"
             >
               <button
-                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
                 type="button"
+                (click)="setVolumeUnit('gallons')"
+                [class.bg-primary]="settingsForm.get('volumeUnit')?.value === 'gallons'"
+                [class.text-slate-900]="settingsForm.get('volumeUnit')?.value === 'gallons'"
+                class="px-3 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
               >
                 Gal
               </button>
               <button
-                class="px-3 py-1 text-xs font-bold rounded-md bg-primary text-slate-900 shadow-sm transition-all"
                 type="button"
+                (click)="setVolumeUnit('liters')"
+                [class.bg-primary]="settingsForm.get('volumeUnit')?.value === 'liters'"
+                [class.text-slate-900]="settingsForm.get('volumeUnit')?.value === 'liters'"
+                class="px-3 py-1 text-xs font-bold rounded-md transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
               >
                 Liters
               </button>

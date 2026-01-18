@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { CreateOrganizationRequest } from '../models/organization.interface';
+import { OrganizationService } from '../services/organization.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -13,6 +16,8 @@ import { Router, RouterModule } from '@angular/router';
 export class OnboardingComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private organizationService = inject(OrganizationService);
+  private toast = inject(ToastService);
 
   currentStep = signal(1);
   totalSteps = 3;
@@ -50,7 +55,31 @@ export class OnboardingComponent {
   }
 
   nextStep() {
-    if (this.currentStep() < this.totalSteps) {
+    if (this.currentStep() === 1) {
+      if (this.onboardingForm.get('companyInfo')?.invalid) return;
+
+      const companyData = this.onboardingForm.value.companyInfo;
+      const request: CreateOrganizationRequest = {
+        legalName: companyData?.businessName!,
+        fiscalId: companyData?.fiscalId!,
+        industrySector: companyData?.sector!,
+        geographicLocation: companyData?.location!,
+        defaultCurrency: 'USD', // Default
+        distanceUnit: 'km', // Default
+        volumeUnit: 'liters', // Default
+      };
+
+      this.organizationService.createOrganization(request).subscribe({
+        next: () => {
+          this.toast.success('Organization created successfully!');
+          this.currentStep.set(2);
+        },
+        error: (err) => {
+          console.error('Error creating organization:', err);
+          this.toast.error('Failed to create organization. Please check your data.');
+        },
+      });
+    } else if (this.currentStep() < this.totalSteps) {
       this.currentStep.update((s) => s + 1);
     } else {
       this.finishOnboarding();

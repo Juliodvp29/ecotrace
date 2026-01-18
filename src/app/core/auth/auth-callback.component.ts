@@ -29,7 +29,13 @@ export class AuthCallbackComponent implements OnInit {
           user,
         };
         this.authService.handleCallback(authResponse);
-        this.router.navigate(['/']);
+
+        // Decide where to redirect based on onboarding status
+        if (user.onboardingCompleted) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/onboarding']);
+        }
       } catch (e) {
         console.error('Error parsing user data from Google Auth', e);
         this.router.navigate(['/login']);
