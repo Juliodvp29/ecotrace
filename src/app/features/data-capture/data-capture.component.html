@@ -34,7 +34,21 @@
   </header>
 
   <!-- Main Content Area -->
-  <div class="flex-1 overflow-y-auto p-6 md:p-10">
+  <div class="flex-1 overflow-y-auto p-6 md:p-10 relative">
+    <!-- Loading Overlay -->
+    @if (isLoading()) {
+      <div
+        class="absolute inset-0 bg-white/50 dark:bg-black/20 backdrop-blur-[2px] z-50 flex items-center justify-center"
+      >
+        <div class="flex flex-col items-center gap-3">
+          <div
+            class="size-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"
+          ></div>
+          <p class="text-sm font-bold text-text-main dark:text-white">Processing...</p>
+        </div>
+      </div>
+    }
+
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
       <!-- Left Column: Upload Zone (4 cols on XL screens) -->
       <div class="xl:col-span-4 flex flex-col">
@@ -60,7 +74,7 @@
             class="flex-1"
             [document]="selectedDocument()!"
             (confirmData)="onConfirmData($event)"
-            (reject)="onRejectDocument()"
+            (reject)="onRejectDocument($event)"
           >
           </app-document-preview>
         } @else {

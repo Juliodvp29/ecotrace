@@ -56,25 +56,27 @@
                 <div
                   [class]="
                     'p-2 rounded bg-white dark:bg-gray-800 shadow-sm ' +
-                    getFileIconColor(document.filename)
+                    getFileIconColor(document.filename || document.vendorName)
                   "
                 >
                   <span class="material-symbols-outlined text-xl">{{
-                    getFileIcon(document.filename)
+                    getFileIcon(document.filename || document.vendorName)
                   }}</span>
                 </div>
                 <div>
                   <p class="text-sm font-bold text-text-main dark:text-white">
-                    {{ document.filename }}
+                    {{ document.vendorName || document.filename }}
                   </p>
-                  <p class="text-xs text-text-secondary dark:text-slate-400">{{ document.size }}</p>
+                  <p class="text-xs text-text-secondary dark:text-slate-400">
+                    {{ document.size || 'N/A' }}
+                  </p>
                 </div>
               </div>
             </td>
 
             <!-- Date Column -->
             <td class="px-6 py-4 text-sm text-text-secondary dark:text-slate-400 font-medium">
-              {{ document.date }}
+              {{ document.entryDate | date: 'mediumDate' }}
             </td>
 
             <!-- Category Column -->
@@ -97,18 +99,18 @@
               <span
                 [class]="
                   'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ' +
-                  getStatusClasses(document.status)
+                  getStatusClasses(document.verificationStatus)
                 "
               >
-                @if (document.status === 'processing') {
+                @if (document.verificationStatus === 'pending') {
                   <span class="size-2 bg-yellow-400 rounded-full animate-pulse"></span>
                 }
-                @if (getStatusIcon(document.status)) {
+                @if (getStatusIcon(document.verificationStatus)) {
                   <span class="material-symbols-outlined text-sm">{{
-                    getStatusIcon(document.status)
+                    getStatusIcon(document.verificationStatus)
                   }}</span>
                 }
-                {{ getStatusLabel(document.status) }}
+                {{ getStatusLabel(document.verificationStatus) }}
               </span>
             </td>
           </tr>

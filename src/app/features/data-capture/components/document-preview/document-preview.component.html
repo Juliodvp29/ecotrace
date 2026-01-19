@@ -1,10 +1,12 @@
 <div
   class="flex-1 bg-surface-light dark:bg-surface-dark rounded-2xl shadow-lg border border-primary/30 relative overflow-hidden flex flex-col lg:flex-row"
 >
-  <!-- Processing Progress Bar -->
-  <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-800 z-20">
-    <div class="h-full bg-primary w-2/3 animate-pulse"></div>
-  </div>
+  <!-- Processing Progress Bar (Visible during initial scan or update) -->
+  @if (document().verificationStatus === 'pending') {
+    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-800 z-20">
+      <div class="h-full bg-primary w-2/3 animate-pulse"></div>
+    </div>
+  }
 
   <!-- Left: Document Preview -->
   <div
@@ -39,11 +41,11 @@
     <div
       class="relative flex-1 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden shadow-inner group"
     >
-      @if (document().previewUrl) {
+      @if (document().originalUrl) {
         <div
           class="absolute inset-0 bg-cover bg-top opacity-90 transition-all group-hover:opacity-100"
           [style.transform]="'scale(' + zoomLevel() + ')'"
-          [style.background-image]="'url(' + document().previewUrl + ')'"
+          [style.background-image]="'url(' + document().originalUrl + ')'"
         ></div>
 
         <!-- Scanning Effect Overlay -->
@@ -128,24 +130,44 @@
       <!-- Consumption Field (highlighted for low confidence) -->
       <div class="space-y-1.5">
         <label
-          class="text-xs font-bold text-yellow-600 dark:text-yellow-500 uppercase flex items-center gap-1"
+          class="text-xs font-bold uppercase flex items-center gap-1"
+          [class.text-yellow-600]="document().confidenceLevel !== 'high'"
+          [class.dark:text-yellow-500]="document().confidenceLevel !== 'high'"
+          [class.text-text-secondary]="document().confidenceLevel === 'high'"
+          [class.dark:text-slate-400]="document().confidenceLevel === 'high'"
         >
           {{ translationService.translate('dataCapture.preview.fields.consumption') }}
-          <span class="material-symbols-outlined text-sm">info</span>
+          @if (document().confidenceLevel !== 'high') {
+            <span class="material-symbols-outlined text-sm">info</span>
+          }
         </label>
         <div class="relative">
           <input
             formControlName="consumption"
             type="text"
-            class="w-full bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-300 dark:border-yellow-700 rounded-lg px-3 py-2.5 text-sm font-bold text-text-main dark:text-white focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all"
+            [class.bg-yellow-50]="document().confidenceLevel !== 'high'"
+            [class.dark:bg-yellow-900/10]="document().confidenceLevel !== 'high'"
+            [class.border-yellow-300]="document().confidenceLevel !== 'high'"
+            [class.dark:border-yellow-700]="document().confidenceLevel !== 'high'"
+            [class.bg-background-light]="document().confidenceLevel === 'high'"
+            [class.dark:bg-background-dark]="document().confidenceLevel === 'high'"
+            class="w-full border rounded-lg px-3 py-2.5 text-sm font-bold text-text-main dark:text-white focus:outline-none focus:ring-1 transition-all"
+            [class.focus:border-yellow-500]="document().confidenceLevel !== 'high'"
+            [class.focus:ring-yellow-500]="document().confidenceLevel !== 'high'"
+            [class.focus:border-primary]="document().confidenceLevel === 'high'"
+            [class.focus:ring-primary]="document().confidenceLevel === 'high'"
           />
-          <div class="absolute right-3 top-2.5 text-yellow-500">
-            <span class="material-symbols-outlined text-lg">priority_high</span>
-          </div>
+          @if (document().confidenceLevel !== 'high') {
+            <div class="absolute right-3 top-2.5 text-yellow-500">
+              <span class="material-symbols-outlined text-lg">priority_high</span>
+            </div>
+          }
         </div>
-        <p class="text-[10px] text-yellow-600 dark:text-yellow-400">
-          {{ translationService.translate('dataCapture.preview.lowConfidenceHint') }}
-        </p>
+        @if (document().confidenceLevel !== 'high') {
+          <p class="text-[10px] text-yellow-600 dark:text-yellow-400">
+            {{ translationService.translate('dataCapture.preview.lowConfidenceHint') }}
+          </p>
+        }
       </div>
 
       <!-- Total Cost Field -->

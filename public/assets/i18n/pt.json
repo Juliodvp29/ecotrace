@@ -202,6 +202,7 @@
     "subtitle": "Carregue faturas para calcular automaticamente sua pegada de carbono usando IA.",
     "helpGuide": "Guia de Ajuda",
     "newReport": "Novo Relatório",
+    "uploadSuccess": "Documento processado e dados extraídos com sucesso!",
     "upload": {
       "title": "Carregar Documentos",
       "dragDropText": "Clique ou arraste arquivos aqui",

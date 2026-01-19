@@ -202,6 +202,7 @@
     "subtitle": "Sube facturas para calcular automáticamente tu huella de carbono con IA.",
     "helpGuide": "Guía de Ayuda",
     "newReport": "Nuevo Reporte",
+    "uploadSuccess": "¡Documento procesado y datos extraídos con éxito!",
     "upload": {
       "title": "Subir Documentos",
       "dragDropText": "Haz clic o arrastra archivos aquí",

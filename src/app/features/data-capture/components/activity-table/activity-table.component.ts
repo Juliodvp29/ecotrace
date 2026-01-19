@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
+import { DataEntry } from '@core/models/data-entry.interface';
 import { TranslationService } from '@core/services/translation.service';
-import { UploadedDocument } from '@features/data-capture/data-capture.component';
 
 @Component({
   selector: 'app-activity-table',
@@ -11,18 +11,20 @@ import { UploadedDocument } from '@features/data-capture/data-capture.component'
 })
 export class ActivityTableComponent {
   protected translationService = inject(TranslationService);
-  documents = input.required<UploadedDocument[]>();
-  selectedDocument = input<UploadedDocument | null>();
-  documentSelected = output<UploadedDocument>();
+  documents = input.required<DataEntry[]>();
+  selectedDocument = input<DataEntry | null>();
+  documentSelected = output<DataEntry>();
 
-  getFileIcon(filename: string): string {
+  getFileIcon(filename?: string): string {
+    if (!filename) return 'description';
     if (filename.endsWith('.pdf')) return 'picture_as_pdf';
     if (filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png'))
       return 'image';
     return 'description';
   }
 
-  getFileIconColor(filename: string): string {
+  getFileIconColor(filename?: string): string {
+    if (!filename) return 'text-gray-500';
     if (filename.endsWith('.pdf')) return 'text-red-500';
     if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) return 'text-blue-500';
     if (filename.endsWith('.png')) return 'text-purple-500';
@@ -58,10 +60,12 @@ export class ActivityTableComponent {
   getStatusClasses(status: string): string {
     switch (status) {
       case 'processing':
+      case 'pending':
         return 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border-yellow-100 dark:border-yellow-800';
       case 'verified':
         return 'bg-primary/20 text-green-800 dark:text-green-200 border-green-200 dark:border-green-800';
       case 'action_required':
+      case 'rejected':
         return 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800';
       default:
         return 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-100 dark:border-gray-700';
@@ -73,6 +77,7 @@ export class ActivityTableComponent {
       case 'verified':
         return 'check_circle';
       case 'action_required':
+      case 'rejected':
         return 'error';
       default:
         return '';
@@ -82,10 +87,12 @@ export class ActivityTableComponent {
   getStatusLabel(status: string): string {
     switch (status) {
       case 'processing':
+      case 'pending':
         return this.translationService.translate('dataCapture.activity.status.processing');
       case 'verified':
         return this.translationService.translate('dataCapture.activity.status.verified');
       case 'action_required':
+      case 'rejected':
         return this.translationService.translate('dataCapture.activity.status.actionRequired');
       default:
         return status;
@@ -105,11 +112,11 @@ export class ActivityTableComponent {
     }
   }
 
-  onRowClick(document: UploadedDocument) {
+  onRowClick(document: DataEntry) {
     this.documentSelected.emit(document);
   }
 
-  isSelected(document: UploadedDocument): boolean {
+  isSelected(document: DataEntry): boolean {
     return this.selectedDocument()?.id === document.id;
   }
 }

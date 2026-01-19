@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DataEntry } from '@core/models/data-entry.interface';
 import { TranslationService } from '@core/services/translation.service';
-import { UploadedDocument } from '@features/data-capture/data-capture.component';
 
 @Component({
   selector: 'app-document-preview',
@@ -13,11 +13,11 @@ import { UploadedDocument } from '@features/data-capture/data-capture.component'
 })
 export class DocumentPreviewComponent {
   protected translationService = inject(TranslationService);
-  private fb = new FormBuilder();
+  private fb = inject(FormBuilder);
 
-  document = input.required<UploadedDocument>();
+  document = input.required<DataEntry>();
   confirmData = output<any>();
-  reject = output<void>();
+  reject = output<string>(); // Emit rejection notes
 
   zoomLevel = signal(1);
 
@@ -29,18 +29,19 @@ export class DocumentPreviewComponent {
     notes: [''],
   });
 
-  ngOnInit() {
-    // Initialize form with document data
-    const data = this.document().extractedData;
-    if (data) {
-      this.extractedDataForm.patchValue({
-        vendor: data.vendor,
-        date: data.date,
-        consumption: data.consumption,
-        totalCost: data.totalCost,
-        notes: data.notes,
-      });
-    }
+  constructor() {
+    effect(() => {
+      const doc = this.document();
+      if (doc) {
+        this.extractedDataForm.patchValue({
+          vendor: doc.vendorName || '',
+          date: doc.entryDate || '',
+          consumption: doc.quantity?.toString() || '',
+          totalCost: doc.totalCost?.toString() || '',
+          notes: doc.notes || '',
+        });
+      }
+    });
   }
 
   zoomIn() {
@@ -58,10 +59,21 @@ export class DocumentPreviewComponent {
   }
 
   onReject() {
-    this.reject.emit();
+    const notes = this.extractedDataForm.get('notes')?.value || 'Rejected by user';
+    this.reject.emit(notes);
   }
 
   getConfidence(): number {
-    return this.document().extractedData?.confidence || 0;
+    const level = this.document().confidenceLevel;
+    switch (level) {
+      case 'high':
+        return 95;
+      case 'medium':
+        return 75;
+      case 'low':
+        return 45;
+      default:
+        return 0;
+    }
   }
 }

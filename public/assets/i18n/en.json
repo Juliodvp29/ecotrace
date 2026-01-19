@@ -202,6 +202,7 @@
     "subtitle": "Upload utility bills to automatically calculate your carbon footprint using AI.",
     "helpGuide": "Help Guide",
     "newReport": "New Report",
+    "uploadSuccess": "Document processed and data extracted successfully!",
     "upload": {
       "title": "Upload Documents",
       "dragDropText": "Click or drag files here",
